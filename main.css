@@ -925,8 +925,8 @@ body[class=updated-bcs-design] {
   --border-radius-sm: 8px;
   --border-radius-md: 16px;
   --border-radius-lg: 32px;
-  --primary-animation: all 0.3s ease;
-  --modal-window-animation-duration: 1s;
+  --primary-animation: all 0.3s ease-out;
+  --modal-window-animation-duration: 0.3s;
 }
 
 .updated-bcs-design {
@@ -1035,42 +1035,42 @@ body[class=updated-bcs-design] {
   padding: 10px 16px;
 }
 @keyframes ModalWindowCloseAnimation {
-  0% {
+  from {
     display: block;
   }
-  100% {
+  to {
     display: none;
   }
 }
 @keyframes ModalWindowOpenBackgroundAnimation {
-  0% {
+  from {
     opacity: 0;
   }
-  100% {
+  to {
     opacity: 1;
   }
 }
 @keyframes ModalWindowCloseBackgroundAnimation {
-  0% {
+  from {
     opacity: 1;
   }
-  100% {
+  to {
     opacity: 0;
   }
 }
 @keyframes ModalWindowOpenSlideAnimation {
-  0% {
+  from {
     max-height: 0;
   }
-  100% {
+  to {
     max-height: 85%;
   }
 }
 @keyframes ModalWindowCloseSlideAnimation {
-  0% {
+  from {
     max-height: 85%;
   }
-  100% {
+  to {
     max-height: 0%;
   }
 }
@@ -1081,7 +1081,7 @@ body[class=updated-bcs-design] {
   display: none;
   width: 100%;
   height: 100%;
-  animation: ModalWindowCloseAnimation var(--modal-window-animation-duration) ease;
+  animation: ModalWindowCloseAnimation var(--modal-window-animation-duration) step-end;
 }
 .updated-bcs-design .modal-window__background {
   position: relative;
@@ -1090,17 +1090,20 @@ body[class=updated-bcs-design] {
   height: 100%;
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.7764705882);
-  animation: ModalWindowCloseBackgroundAnimation var(--modal-window-animation-duration) ease;
+  animation: ModalWindowCloseBackgroundAnimation var(--modal-window-animation-duration) ease-out;
 }
 .updated-bcs-design .modal-window__window {
   position: absolute;
   bottom: 0;
   width: 100%;
   max-height: 85%;
+  animation: ModalWindowCloseSlideAnimation var(--modal-window-animation-duration) ease-out;
+}
+.updated-bcs-design .modal-window__window-wrapper {
+  height: 100%;
   padding: 20px 16px;
   border-radius: var(--border-radius-sm);
   background-color: var(--primary-background-color);
-  animation: ModalWindowCloseSlideAnimation var(--modal-window-animation-duration) ease;
 }
 .updated-bcs-design .modal-window__header {
   display: flex;
@@ -1137,6 +1140,8 @@ body[class=updated-bcs-design] {
     position: static;
     width: auto;
     height: auto;
+  }
+  .updated-bcs-design .modal-window--only-mobile-use .modal-window__window-wrapper {
     padding: 0;
     border-radius: 0;
     background-color: transparent;
@@ -1153,13 +1158,13 @@ body[class=updated-bcs-design] {
   animation: none;
 }
 .updated-bcs-design .modal-window.opened .modal-window__background {
-  animation: ModalWindowOpenBackgroundAnimation var(--modal-window-animation-duration) ease;
+  animation: ModalWindowOpenBackgroundAnimation var(--modal-window-animation-duration) ease-out;
 }
 .updated-bcs-design .modal-window.opened .modal-window__window {
-  animation: ModalWindowOpenSlideAnimation var(--modal-window-animation-duration) ease;
+  animation: ModalWindowOpenSlideAnimation var(--modal-window-animation-duration) ease-out;
 }
 @media (max-width: 992px) {
-  .updated-bcs-design .modal-window__window {
+  .updated-bcs-design .modal-window__window-wrapper {
     padding-bottom: 92px;
     border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
   }
@@ -1488,15 +1493,6 @@ body[class=updated-bcs-design] {
   height: 20px;
   background-color: transparent;
 }
-.updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:focus)::after, .updated-bcs-design .main-header .dropdown-navigation-element:hover::after, .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:active)::after, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:focus)::after, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:active)::after, .updated-bcs-design .main-header .dropdown-navigation-element.opened::after {
-  display: block;
-}
-.updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:focus) .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:hover .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:active) .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:focus) .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:active) .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element.opened .dropdown-navigation-element__section-link {
-  background-color: var(--primary-background-color-opacity);
-}
-.updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:focus) .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:hover .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:active) .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:focus) .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:active) .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element.opened .dropdown-navigation-element__expanded-block {
-  max-height: 700px;
-}
 .updated-bcs-design .main-header .dropdown-navigation-element--no-expand {
   display: none;
 }
@@ -1610,14 +1606,31 @@ body[class=updated-bcs-design] {
   .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand) .dropdown-navigation-element__plus {
     display: block;
   }
-  .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand):focus .dropdown-navigation-element__section-title, .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand):hover .dropdown-navigation-element__section-title, .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand).opened .dropdown-navigation-element__section-title {
+  .updated-bcs-design .main-header .dropdown-navigation-element.opened:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand) .dropdown-navigation-element__section-title {
     border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
   }
-  .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand):focus .dropdown-navigation-element__plus, .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand):hover .dropdown-navigation-element__plus, .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand).opened .dropdown-navigation-element__plus {
+  .updated-bcs-design .main-header .dropdown-navigation-element.opened:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand) .dropdown-navigation-element__section-link {
+    background-color: var(--primary-background-color-opacity);
+  }
+  .updated-bcs-design .main-header .dropdown-navigation-element.opened:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand) .dropdown-navigation-element__expanded-block {
+    max-height: 700px;
+  }
+  .updated-bcs-design .main-header .dropdown-navigation-element.opened:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand) .dropdown-navigation-element__plus {
     display: none;
   }
-  .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand):focus .dropdown-navigation-element__minus, .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand):hover .dropdown-navigation-element__minus, .updated-bcs-design .main-header .dropdown-navigation-element:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand).opened .dropdown-navigation-element__minus {
+  .updated-bcs-design .main-header .dropdown-navigation-element.opened:not(.updated-bcs-design .main-header .dropdown-navigation-element--no-expand) .dropdown-navigation-element__minus {
     display: block;
+  }
+}
+@media (min-width: 993px) {
+  .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:focus)::after, .updated-bcs-design .main-header .dropdown-navigation-element:hover::after, .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:active)::after, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:focus)::after, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:active)::after {
+    display: block;
+  }
+  .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:focus) .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:hover .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:active) .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:focus) .dropdown-navigation-element__section-link, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:active) .dropdown-navigation-element__section-link {
+    background-color: var(--primary-background-color-opacity);
+  }
+  .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:focus) .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:hover .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:active) .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:focus) .dropdown-navigation-element__expanded-block, .updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:active) .dropdown-navigation-element__expanded-block {
+    max-height: 700px;
   }
 }
 .updated-bcs-design .main-header--landing .main-header__logo {
