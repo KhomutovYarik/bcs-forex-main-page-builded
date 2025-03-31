@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БКС Форекс</title>
+    <meta name="description" content="">
+<script defer src="script.js"></script><link href="main.css" rel="stylesheet"></head>
+<body class="updated-bcs-design">
+    <header class="main-header">
+        <div class="container">
+            <div class="main-header__wrapper">
+                <a
+                    href="/"
+                    class="main-header__logo"
+                >
+                    <svg 
+                        viewBox="0 0 192 47"
+                        class="main-header__logo"
+                        width="192"
+                        height="47"
+                    >
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M97.4026 18.5483H97.53V27.5552H97.4026C95.6399 27.5552 94.3444 27.1477 93.4736 26.3328C92.6029 25.5393 92.1782 24.4242 92.1782 23.0303C92.1782 21.6363 92.6241 20.5426 93.4949 19.7277C94.3656 18.9343 95.6611 18.5268 97.4026 18.5483ZM97.53 29.378V31.3724H99.4839V29.378H99.6113C100.716 29.378 101.714 29.2279 102.606 28.9277C103.498 28.6489 104.262 28.22 104.899 27.6838C105.515 27.1477 106.004 26.4829 106.344 25.6895C106.662 24.896 106.832 24.0167 106.832 23.0303C106.832 22.0438 106.662 21.1646 106.344 20.3711C106.004 19.5991 105.515 18.9343 104.899 18.3981C104.284 17.862 103.519 17.4331 102.627 17.1543C101.735 16.8755 100.737 16.7254 99.6113 16.7254H99.4839V14.8597H97.53V16.7254H97.4239C96.2983 16.7254 95.3001 16.8755 94.4081 17.1543C93.5161 17.4331 92.7516 17.862 92.1357 18.3981C91.4986 18.9343 91.0101 19.5991 90.6915 20.3711C90.3517 21.1646 90.1818 22.0438 90.1818 23.0303C90.1818 24.0167 90.3517 24.896 90.6915 25.6895C91.0101 26.4829 91.4986 27.1477 92.1357 27.6838C92.7516 28.22 93.5161 28.6489 94.4081 28.9277C95.3001 29.2279 96.2983 29.378 97.4239 29.378H97.53ZM103.562 26.3328C102.691 27.1477 101.374 27.5552 99.6113 27.5552H99.4839V18.5483H99.6113C101.353 18.5268 102.67 18.9343 103.54 19.7277C104.411 20.5426 104.857 21.6363 104.857 23.0303C104.857 24.4242 104.432 25.5393 103.562 26.3328ZM116.477 29.0992C117.306 29.0992 118.07 28.9491 118.792 28.6274C119.493 28.3272 120.109 27.8983 120.64 27.3622C121.15 26.826 121.553 26.1827 121.851 25.4536C122.148 24.7459 122.297 23.9524 122.297 23.1161C122.297 22.2797 122.148 21.5077 121.851 20.7785C121.553 20.0494 121.15 19.4061 120.64 18.8699C120.109 18.3338 119.493 17.9049 118.792 17.5832C118.07 17.283 117.306 17.1329 116.477 17.1329C115.649 17.1329 114.885 17.283 114.184 17.5832C113.483 17.9049 112.867 18.3338 112.357 18.8699C111.826 19.4061 111.423 20.0494 111.126 20.7785C110.828 21.5077 110.68 22.2797 110.68 23.1161C110.68 23.9524 110.828 24.7459 111.126 25.4536C111.423 26.1827 111.826 26.826 112.357 27.3622C112.867 27.8983 113.483 28.3272 114.184 28.6274C114.885 28.9491 115.649 29.0992 116.477 29.0992ZM116.477 30.9864C115.394 30.9864 114.375 30.7719 113.44 30.3645C112.485 29.957 111.657 29.3994 110.956 28.6918C110.255 27.9841 109.703 27.1692 109.299 26.2041C108.896 25.2391 108.683 24.2097 108.683 23.1161C108.683 22.0224 108.896 20.993 109.299 20.028C109.703 19.0629 110.255 18.2266 110.956 17.5189C111.657 16.8112 112.485 16.2536 113.44 15.8462C114.375 15.4387 115.394 15.2457 116.477 15.2457C117.561 15.2457 118.58 15.4387 119.536 15.8462C120.491 16.2536 121.32 16.8112 122.02 17.5189C122.721 18.2266 123.273 19.0629 123.677 20.028C124.081 20.993 124.272 22.0224 124.272 23.1161C124.272 24.2097 124.081 25.2391 123.677 26.2041C123.273 27.1692 122.721 27.9841 122.02 28.6918C121.32 29.3994 120.491 29.957 119.536 30.3645C118.58 30.7719 117.561 30.9864 116.477 30.9864ZM169.48 30.3859C170.435 30.7934 171.455 30.9864 172.559 30.9864C173.515 30.9864 174.386 30.8363 175.193 30.536C176 30.2572 176.722 29.8712 177.359 29.378C177.975 28.8848 178.506 28.3272 178.909 27.6838C179.313 27.0619 179.61 26.3971 179.78 25.7109H177.699C177.529 26.1827 177.295 26.633 176.977 27.0405C176.658 27.4479 176.276 27.8125 175.83 28.1127C175.384 28.4344 174.874 28.6703 174.322 28.8419C173.77 29.0134 173.175 29.0992 172.559 29.0992C171.731 29.0992 170.945 28.9491 170.244 28.6274C169.522 28.3272 168.906 27.8983 168.375 27.3622C167.844 26.826 167.441 26.2041 167.165 25.475C166.868 24.7459 166.719 23.9524 166.719 23.1161C166.719 22.2797 166.868 21.4862 167.165 20.7571C167.441 20.028 167.844 19.3846 168.375 18.8485C168.906 18.3124 169.522 17.9049 170.244 17.5832C170.945 17.283 171.731 17.1329 172.559 17.1329C173.175 17.1329 173.77 17.2187 174.322 17.3902C174.874 17.5618 175.384 17.7977 175.83 18.0979C176.276 18.4196 176.658 18.7842 176.977 19.1916C177.295 19.5991 177.529 20.0494 177.699 20.5212H179.78C179.61 19.835 179.313 19.1702 178.909 18.5268C178.506 17.9049 177.975 17.3473 177.359 16.8541C176.722 16.3609 176 15.9749 175.193 15.6746C174.386 15.3958 173.515 15.2457 172.559 15.2457C171.455 15.2457 170.435 15.4387 169.48 15.8462C168.524 16.2536 167.696 16.7898 166.995 17.4975C166.294 18.2051 165.742 19.0415 165.338 20.0065C164.935 20.9715 164.744 22.0009 164.744 23.1161C164.744 24.2312 164.935 25.2606 165.338 26.2256C165.742 27.1906 166.294 28.0055 166.995 28.7132C167.696 29.4209 168.524 29.9785 169.48 30.3859ZM153.469 30.729V23.4806L161.475 30.729H164.257L155.444 22.7515L162.622 15.5031H160.052L153.469 22.1081V15.5031H151.515V30.729H153.469ZM139.693 15.5031H148.485V17.3902H141.668V22.0009H147.211V23.8881H141.668V28.8419H148.485V30.729H139.693V15.5031ZM136.679 22.2582C136.912 21.6792 137.04 21.0359 137.04 20.3496C137.04 19.6634 136.912 19.02 136.679 18.4196C136.424 17.8406 136.084 17.3259 135.638 16.897C135.192 16.4681 134.64 16.125 134.003 15.8676C133.344 15.6317 132.644 15.5031 131.858 15.5031H127.249V30.729H129.224V25.1748H131.858C132.644 25.1748 133.344 25.0461 134.003 24.8102C134.64 24.5743 135.192 24.2312 135.638 23.7808C136.084 23.3519 136.424 22.8373 136.679 22.2582ZM134.873 19.1702C135.022 19.5347 135.086 19.9207 135.086 20.3496C135.086 20.7785 135.022 21.1645 134.873 21.5291C134.725 21.8937 134.534 22.1939 134.258 22.4727C133.981 22.7515 133.642 22.9445 133.238 23.0946C132.835 23.2447 132.389 23.3305 131.858 23.3305H129.224V17.3688H131.858C132.389 17.3688 132.835 17.4331 133.238 17.5832C133.642 17.7333 133.981 17.9478 134.258 18.2266C134.534 18.5054 134.725 18.8056 134.873 19.1702Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M52.4651 25.9469C52.4651 23.1289 50.2499 21.1945 47.2709 21.1945H44.2307V18.4527H51.1513V15.4976H41.0989V30.6993H47.2709C50.2499 30.6993 52.4651 28.7343 52.4651 25.9469ZM44.2307 24.0429H47.225C48.5389 24.0429 49.425 24.7283 49.425 25.9469C49.425 27.1654 48.5236 27.8356 47.2098 27.8356H44.2307V24.0429Z" fill="white"/>
+                        <path d="M57.8121 23.8144V30.7145H54.7261V15.4976H57.8274V21.9408L63.3272 15.4976H67.1771L60.8982 22.8091L68.4757 30.7145H64.4425L57.8121 23.8144Z" fill="white"/>
+                        <path d="M76.6798 15.2538C72.066 15.2538 68.6898 18.7267 68.6898 23.1136C68.6898 27.5004 72.066 30.9733 76.6798 30.9733C80.1477 30.9733 83.2185 28.7647 84.074 25.5355H80.6977C80.0713 27.0587 78.3756 27.9726 76.6798 27.9726C73.7618 27.9726 71.8216 25.8401 71.8216 23.1136C71.8216 20.4023 73.7618 18.2545 76.6798 18.2545C78.3756 18.2545 80.0713 19.1685 80.6977 20.6917H84.074C83.2185 17.4625 80.1324 15.2538 76.6798 15.2538Z" fill="white"/>
+                        <path d="M23.2727 35.561C29.6993 35.561 34.9091 30.3003 34.9091 23.811C34.9091 17.3216 29.6993 12.061 23.2727 12.061C16.8461 12.061 11.6364 17.3216 11.6364 23.811C11.6364 30.3003 16.8461 35.561 23.2727 35.561Z" fill="url(#paint0_linear_391_13682)"/>
+                        <path d="M23.2727 35.561C29.6993 35.561 34.9091 30.3003 34.9091 23.811C34.9091 17.3216 29.6993 12.061 23.2727 12.061C16.8461 12.061 11.6364 17.3216 11.6364 23.811C11.6364 30.3003 16.8461 35.561 23.2727 35.561Z" fill="url(#paint1_linear_391_13682)"/>
+                        <path d="M16.915 14.0674C13.0464 17.6208 13.4662 24.0232 17.854 28.3659C22.2402 32.7086 28.9317 33.35 32.8019 29.795C33.2404 29.3922 33.6238 28.9529 33.9526 28.4843C34.5681 27.052 34.9093 25.4717 34.9093 23.811C34.9093 17.3216 29.6995 12.061 23.273 12.061C21.1099 12.061 19.0847 12.6569 17.3496 13.6951C17.2012 13.8136 17.0562 13.9377 16.915 14.0674Z" fill="url(#paint2_radial_391_13682)"/>
+                        <path d="M17.705 14.0667C15.874 16.8826 18.0064 21.2587 22.4685 23.8383C26.9307 26.4194 32.0307 26.2279 33.8633 23.4104C34.3808 22.6147 34.5821 21.6948 34.5041 20.7261C33.1623 15.7332 28.6423 12.061 23.2729 12.061C21.6513 12.061 20.1073 12.3959 18.7048 13.0009C18.3099 13.2999 17.9725 13.6553 17.705 14.0667Z" fill="url(#paint3_linear_391_13682)"/>
+                        <defs>
+                            <linearGradient id="paint0_linear_391_13682" x1="22.9818" y1="35.2672" x2="23.1559" y2="13.4054" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#412E63"/>
+                            <stop offset="0.479167" stop-color="#B5A7CD"/>
+                            <stop offset="1" stop-color="#ECE9F1"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_391_13682" x1="33.1636" y1="29.0985" x2="20.8585" y2="19.8138" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#5B4386"/>
+                            <stop offset="1" stop-color="#B8ABCF" stop-opacity="0"/>
+                            </linearGradient>
+                            <radialGradient id="paint2_radial_391_13682" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(37.0554 26.5751) rotate(-152.727) scale(27.7608 57.564)">
+                            <stop offset="0.103242" stop-color="#6B509A"/>
+                            <stop offset="0.459935" stop-color="#A594C1"/>
+                            <stop offset="0.630708" stop-color="#C9BFDA"/>
+                            <stop offset="0.794216" stop-color="#F7F5F9"/>
+                            </radialGradient>
+                            <linearGradient id="paint3_linear_391_13682" x1="33.4323" y1="16.1675" x2="16.8667" y2="18.479" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#9C89BB"/>
+                            <stop offset="0.476252" stop-color="#D3C8E7"/>
+                            <stop offset="0.770833" stop-color="#EEEBF3"/>
+                            <stop offset="1" stop-color="white"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </a>
+                <div class="main-header__main-content">
+                    <div class="main-header-navigation modal-window modal-window--only-mobile-use modal-window--full-height">
+                        <div class="modal-window__background">
+                        </div>
+                        <div class="modal-window__window">
+                            <div class="main-header-navigation__wrapper">
+                                <div class="modal-window__header">
+                                    <div class="modal-window__title">
+                                        Меню
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="modal-window__close-btn"
+                                    >
+                                        <svg class="modal-window__close-icon">
+                                            <use xlink:href="sprites.svg#close-cross"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="main-header-navigation__mobile-menu">
+                                    <nav class="main-header-navigation__navigation">
+                                        <a 
+                                            href="#"
+                                            class="dropdown-navigation-element dropdown-navigation-element--no-expand"
+                                        >
+                                            <div class="dropdown-navigation-element__section-title">
+                                                <div class="dropdown-navigation-element__section-link icon-btn">
+                                                    <div class="icon-btn__text">
+                                                        Главная страница
+                                                    </div>
+                                                    <div class="dropdown-navigation-element__section-link-icon icon-btn__icon-wrapper">
+                                                        <svg class="dropdown-navigation-element__chevron">
+                                                            <use xlink:href="sprites.svg#chevron"></use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-navigation-element">
+                                            <div 
+                                                class="dropdown-navigation-element__section-title"
+                                            >
+                                                <a
+                                                    href="#"
+                                                    class="dropdown-navigation-element__section-link icon-btn icon-btn--navigation"
+                                                >
+                                                    <div class="icon-btn__text">
+                                                        Торговля
+                                                    </div>
+                                                    <div class="dropdown-navigation-element__section-link-icon icon-btn__icon-wrapper">
+                                                        <svg class="dropdown-navigation-element__chevron">
+                                                            <use xlink:href="sprites.svg#chevron"></use>
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                                <button class="dropdown-navigation-element__expand-btn">
+                                                    <div class="dropdown-navigation-element__expand-icon icon-btn__icon-wrapper">
+                                                        <svg class="dropdown-navigation-element__plus">
+                                                            <use xlink:href="sprites.svg#plus"></use>
+                                                        </svg>
+                                                        <svg class="dropdown-navigation-element__minus">
+                                                            <use xlink:href="sprites.svg#minus"></use>
+                                                        </svg>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <div class="dropdown-navigation-element__expanded-block">
+                                                <div class="dropdown-navigation-element__expanded-block-wrapper">
+                                                    <div class="dropdown-navigation-element__sub-btns-list">
+                                                        <a
+                                                            href="#"
+                                                            class="navigation-titled-element"
+                                                        >
+                                                            <div class="navigation-titled-element__content">
+                                                                <div class="navigation-titled-element__title">
+                                                                    Обзоры рынков
+                                                                </div>
+                                                                <div class="navigation-titled-element__description">
+                                                                    Для тех кто хочет держать руки на пульсе. Без ежемесячных платежей
+                                                                </div>
+                                                                <svg class="navigation-titled-element__chevron">
+                                                                    <use xlink:href="sprites.svg#chevron"></use>
+                                                                </svg>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <a class="main-header-navigation__sign-up-mobile-btn btn">
+                                        Стать клиентом
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-header__right-side-btns">
+                        <a
+                            href="#"
+                            class="icon-btn icon-btn--navigation"
+                        >
+                            <div class="icon-btn__icon-wrapper">
+                                <svg class="main-header__sign-in-icon">
+                                    <use xlink:href="sprites.svg#sign-in"></use>
+                                </svg>
+                            </div>
+                            Войти
+                        </a>     
+                        <a
+                            href="#"
+                            class="main-header__sign-up-btn btn btn--secondary btn--small"
+                        >
+                            Стать клиентом  ⭐
+                        </a>                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="header-features-slider-section header-features-slider-section--bg-variant-1 intro-feature-section">
+            <div class="container container--wide">
+                <div class="header-features-large-slider header-features-slider-section__background slider-block">
+                    <div class="swiper-wrapper">
+                        <div class="large-header-banner swiper-slide">
+                            <div class="large-header-banner__left-side">
+                                <div class="large-header-banner__text">
+                                    <h1 class="large-header-banner__title">
+                                        Зарабатывайте на разнице курсов валют
+                                    </h1>
+                                    <div class="large-header-banner__subtitle">
+                                        Торгуйте в режиме реального времени из любой 
+                                        точки мира
+                                    </div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="large-header-banner__btn btn btn--secondary"
+                                >
+                                    Стать клиентом
+                                </a>
+                            </div>
+                            <div class="large-header-banner__img">
+                                <img
+                                    src="./images/large-header-icon.png"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                        <div class="large-header-banner swiper-slide">
+                            <div class="large-header-banner__left-side">
+                                <div class="large-header-banner__text">
+                                    <h1 class="large-header-banner__title">
+                                        Торгуйте иностранными акциями
+                                    </h1>
+                                    <div class="large-header-banner__subtitle">
+                                        Без риска блокировки
+                                    </div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="large-header-banner__btn btn btn--secondary"
+                                >
+                                    Стать клиентом
+                                </a>
+                            </div>
+                            <div class="large-header-banner__img">
+                                <img
+                                    src="./images/cfd-banner.png"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="notifications-section intro-feature-section">
+            <div class="container container--wide">
+                <div class="notifications-section__notifications-list">
+                    <div class="notification-element">
+                        <svg class="notification-element__icon">
+                            <use xlink:href="sprites.svg#exclamation-mark"></use>
+                        </svg>
+                        Обратите внимание! Изменение торговых условия с 20 декабря. Прочитайте подробнее здесь про новые торговые условия 
+                    </div>
+                    <div class="notification-element">
+                        <svg class="notification-element__icon">
+                            <use xlink:href="sprites.svg#exclamation-mark"></use>
+                        </svg>
+                        Обратите внимание! Изменение торговых условия с 20 декабря. Прочитайте подробнее здесь про новые торговые условия 
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="analytics-news-section intro-feature-section">
+            <div class="container">
+                <h3 class="intro-feature-section__title">Мы знаем, как вам заработать на форекс</h3>
+                <h4 class="intro-feature-section__subtitle">Наши аналитики готовят работающие прогнозы — вы зарабатываете</h4>
+                <div class="analytics-news-section-slider intro-feature-section__slider-block slider-block slider-block--mobile">
+                    <div class="intro-feature-section__horizontal-elements-list swiper-wrapper">
+                        <a
+                            href="#"
+                            class="element-info-card element-info-card--article swiper-slide"
+                        >
+                            <div class="element-info-card__icon-wrapper">
+                                <svg class="element-info-card__icon">
+                                    <use xlink:href="sprites.svg#USDNOK"></use>
+                                </svg>
+                            </div>
+                            <div class="element-info-card__title">
+                                EUR/CHF: Явная перспектива ослабления
+                            </div>
+                            <div class="element-info-card__subtitle">
+                                Мы ожидаем, что в ближайший месяц франк ослабнет к евро до 0.944. Основные причины фундаментальны — ...
+                                <span class="element-info-card__read-more">Читать далее</span>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
+                            class="element-info-card element-info-card--article swiper-slide"
+                        >
+                            <div class="element-info-card__icon-wrapper">
+                                <svg class="element-info-card__icon">
+                                    <use xlink:href="sprites.svg#USDNOK"></use>
+                                </svg>
+                            </div>
+                            <div class="element-info-card__title">
+                                EUR/CHF: Явная перспектива ослабления
+                            </div>
+                            <div class="element-info-card__subtitle">
+                                Мы ожидаем, что в ближайший месяц франк ослабнет к евро до 0.944. Основные причины фундаментальны — ...
+                                <span class="element-info-card__read-more">Читать далее</span>
+                            </div>
+                        </a>
+                        <a
+                            href="#"
+                            class="element-info-card element-info-card--article swiper-slide"
+                        >
+                            <div class="element-info-card__icon-wrapper">
+                                <svg class="element-info-card__icon">
+                                    <use xlink:href="sprites.svg#USDNOK"></use>
+                                </svg>
+                            </div>
+                            <div class="element-info-card__title">
+                                EUR/CHF: Явная перспектива ослабления
+                            </div>
+                            <div class="element-info-card__subtitle">
+                                Мы ожидаем, что в ближайший месяц франк ослабнет к евро до 0.944. Основные причины фундаментальны — ...
+                                <span class="element-info-card__read-more">Читать далее</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <a
+                    href="#"
+                    class="intro-feature-section__see-more-btn btn"
+                >
+                    Смотреть все прогнозы
+                </a>
+            </div>
+        </section>
+        <section class="running-line-section intro-feature-section">
+            <div class="container">
+                <div class="currencies-running-line-slider slider-block slider-block--desktop slider-block--autoplay">
+                    <div class="swiper-wrapper">
+                        <div class="value-brief-element swiper-slide">
+                            <svg class="value-brief-element__icon">
+                                <use xlink:href="sprites.svg#USDNOK"></use>
+                            </svg>
+                            <div class="value-brief-element__name">
+                                USD/NOK
+                            </div>
+                            <div class="value-brief-element__value">
+                                2.20478
+                            </div>
+                            <div class="value-brief-element__changes value-brief-element__changes--grow">
+                                0.14% 
+                            </div>
+                        </div>
+                        <div class="value-brief-element swiper-slide">
+                            <svg class="value-brief-element__icon">
+                                <use xlink:href="sprites.svg#USDNOK"></use>
+                            </svg>
+                            <div class="value-brief-element__name">
+                                USD/NOK
+                            </div>
+                            <div class="value-brief-element__value">
+                                2.20478
+                            </div>
+                            <div class="value-brief-element__changes value-brief-element__changes--loss">
+                                -0.88% 
+                            </div>
+                        </div>
+                        <div class="value-brief-element swiper-slide">
+                            <svg class="value-brief-element__icon">
+                                <use xlink:href="sprites.svg#USDNOK"></use>
+                            </svg>
+                            <div class="value-brief-element__name">
+                                USD/NOK
+                            </div>
+                            <div class="value-brief-element__value">
+                                2.20478
+                            </div>
+                            <div class="value-brief-element__changes">
+                                0.00% 
+                            </div>
+                        </div>
+                        <div class="value-brief-element swiper-slide">
+                            <svg class="value-brief-element__icon">
+                                <use xlink:href="sprites.svg#USDNOK"></use>
+                            </svg>
+                            <div class="value-brief-element__name">
+                                USD/NOK
+                            </div>
+                            <div class="value-brief-element__value">
+                                2.20478
+                            </div>
+                            <div class="value-brief-element__changes value-brief-element__changes--grow">
+                                0.14% 
+                            </div>
+                        </div>
+                        <div class="value-brief-element swiper-slide">
+                            <svg class="value-brief-element__icon">
+                                <use xlink:href="sprites.svg#USDNOK"></use>
+                            </svg>
+                            <div class="value-brief-element__name">
+                                USD/NOK
+                            </div>
+                            <div class="value-brief-element__value">
+                                2.20478
+                            </div>
+                            <div class="value-brief-element__changes value-brief-element__changes--grow">
+                                0.14% 
+                            </div>
+                        </div>
+                        <div class="value-brief-element swiper-slide">
+                            <svg class="value-brief-element__icon">
+                                <use xlink:href="sprites.svg#USDNOK"></use>
+                            </svg>
+                            <div class="value-brief-element__name">
+                                USD/NOK
+                            </div>
+                            <div class="value-brief-element__value">
+                                2.20478
+                            </div>
+                            <div class="value-brief-element__changes value-brief-element__changes--grow">
+                                0.14% 
+                            </div>
+                        </div>
+                        <div class="value-brief-element swiper-slide">
+                            <svg class="value-brief-element__icon">
+                                <use xlink:href="sprites.svg#USDNOK"></use>
+                            </svg>
+                            <div class="value-brief-element__name">
+                                USD/NOK
+                            </div>
+                            <div class="value-brief-element__value">
+                                2.20478
+                            </div>
+                            <div class="value-brief-element__changes value-brief-element__changes--grow">
+                                0.14% 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="get-started-tutorial-section intro-feature-section">
+            <div class="container container--wide">
+                <h3 class="intro-feature-section__title">Начать торговать легко</h3>
+                <h4 class="intro-feature-section__subtitle">Чтобы открыть счет, понадобится только паспорт </h4>
+                <div class="get-started-tutorial-slider intro-feature-section__slider-block slider-block slider-block--mobile">
+                    <div class="intro-feature-section__horizontal-elements-list swiper-wrapper">
+                        <div class="vertical-card swiper-slide">
+                            <div class="vertical-card__icon">
+    
+                            </div>
+                            <div class="vertical-card__additional-icon icon-inside-circle icon-inside-circle--quarter">
+                                <span class="icon-inside-circle__content">1</span>
+                            </div>
+                            <div class="vertical-card__title">
+                                Откройте счет
+                            </div>
+                            <div class="vertical-card__description">
+                                <span class="underlined">на сайте</span> или в приложении за 3 минуты
+                            </div>
+                        </div>
+                        <div class="vertical-card swiper-slide">
+                            <div class="vertical-card__icon">
+    
+                            </div>
+                            <div class="vertical-card__additional-icon icon-inside-circle icon-inside-circle--half">
+                                <span class="icon-inside-circle__content">2</span>
+                            </div>
+                            <div class="vertical-card__title">
+                                Пополните счет
+                            </div>
+                            <div class="vertical-card__description">
+                                с карты любого российского банка без комиссии
+                            </div>
+                        </div>
+                        <div class="vertical-card swiper-slide">
+                            <div class="vertical-card__icon">
+    
+                            </div>
+                            <div class="vertical-card__additional-icon icon-inside-circle icon-inside-circle--three-fourth">
+                                <span class="icon-inside-circle__content">3</span>
+                            </div>
+                            <div class="vertical-card__title">
+                                Достигайте целей
+                            </div>
+                            <div class="vertical-card__description">
+                                с решениями от БКС Форекс, которые подходят именно вам
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a 
+                    href="#"
+                    class="intro-feature-section__see-more-btn btn"
+                >
+                    Открыть счет бесплатно
+                </a>
+            </div>
+        </section>
+        <section class="platform-promo-section intro-feature-section">
+            <div class="container">
+                <div class="promo-banner">
+                    <div class="promo-banner__image">
+                        <img
+                            src="./images/metatrader5.png"
+                            alt="MetaTrader5 Mobile App"
+                        />
+                    </div>
+                    <div class="promo-banner__right-side">
+                        <h3 class="promo-banner__title">
+                            MT5 передовые технологии исполнения ордеров
+                        </h3>
+                        <div class="promo-banner__description">
+                            Последнее поколение самой популярной торговой платформы, которая дарит  трейдерам практически безграничные возможности 
+                        </div>
+                        <a
+                            href="#"
+                            class="promo-banner__see-more-btn btn btn--secondary"
+                        >
+                            Подробнее
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="currencies-brief-news-section intro-feature-section">
+            <div class="container">
+                <h3 class="section-title intro-feature-section__title">Курсы на рынке форекс</h3>
+                <div class="currencies-brief-news-section-slider intro-feature-section__slider-block slider-block slider-block--mobile">
+                    <div class="intro-feature-section__horizontal-elements-list swiper-wrapper">
+                        <div class="element-info-card element-info-card--brief swiper-slide">
+                            <div class="element-info-card__header">
+                                <div class="element-info-card__icon-wrapper">
+                                    <svg class="element-info-card__icon">
+                                        <use xlink:href="sprites.svg#USDNOK"></use>
+                                    </svg>
+                                </div>
+                                <div class="element-info-card__title">
+                                    USD/RUB
+                                </div>
+                            </div>
+                            <div class="element-info-card__value">
+                                105.207
+                            </div>
+                        </div>
+                        <div class="element-info-card element-info-card--brief swiper-slide">
+                            <div class="element-info-card__header">
+                                <div class="element-info-card__icon-wrapper">
+                                    <svg class="element-info-card__icon">
+                                        <use xlink:href="sprites.svg#USDNOK"></use>
+                                    </svg>
+                                </div>
+                                <div class="element-info-card__title">
+                                    USD/RUB
+                                </div>
+                            </div>
+                            <div class="element-info-card__value">
+                                105.207
+                            </div>
+                        </div>
+                        <div class="element-info-card element-info-card--brief swiper-slide">
+                            <div class="element-info-card__header">
+                                <div class="element-info-card__icon-wrapper">
+                                    <svg class="element-info-card__icon">
+                                        <use xlink:href="sprites.svg#USDNOK"></use>
+                                    </svg>
+                                </div>
+                                <div class="element-info-card__title">
+                                    USD/RUB
+                                </div>
+                            </div>
+                            <div class="element-info-card__value">
+                                105.207
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a
+                    href="#"
+                    class="intro-feature-section__see-more-btn btn"
+                >
+                    Все курсы валют
+                </a>
+            </div>
+        </section>
+        <!--<section class="registration-section intro-feature-section">
+            <div class="container container--wide">
+                <h3 class="intro-feature-section__title">Откройте счет за три шага</h3>
+            </div>
+        </section>-->
+    </main>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="main-footer__content">
+                <nav class="main-footer__navigation-grid-block border-bottom-block">
+                    <ul class="main-footer__navigation-items">
+                        <li class="main-footer__title">
+                            <a
+                                href="#"
+                            >
+                                Торговля
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Спецификация контрактов
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Ввод и вывод средств
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Налогообложение
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="main-footer__navigation-items">
+                        <li class="main-footer__title">
+                            <a
+                                href="#"
+                            >
+                                Торговля
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Спецификация контрактов
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Ввод и вывод средств
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Налогообложение
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="main-footer__navigation-items">
+                        <li class="main-footer__title">
+                            <a
+                                href="#"
+                            >
+                                Условия
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Спецификация контрактов
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Ввод и вывод средств
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Налогообложение
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="main-footer__navigation-items">
+                        <li class="main-footer__title">
+                            <a
+                                href="#"
+                            >
+                                Торговля
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Спецификация контрактов
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Ввод и вывод средств
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Налогообложение
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="main-footer__navigation-items">
+                        <li class="main-footer__title">
+                            <a
+                                href="#"
+                            >
+                                Торговля
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Спецификация контрактов
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Ввод и вывод средств
+                            </a>
+                        </li>
+                        <li class="main-footer__subtitle">
+                            <a
+                                href="#"
+                            >
+                                Налогообложение
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav class="main-footer__navigation-items main-footer__navigation-items--projects border-bottom-block">
+                    <div class="main-footer__title">
+                        Проекты БКС
+                    </div>
+                    <ul class="main-footer__navigation-grid-block main-footer__navigation-grid-block--single-navigation-block">
+                        <li>
+                            <a 
+                                href="#"
+                                class="main-footer__subtitle main-footer__subtitle--external-link"
+                            >
+                                БКС Экспресс
+                                <svg>
+                                    <use xlink:href="sprites.svg#external-link-arrow"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="#"
+                                class="main-footer__subtitle main-footer__subtitle--external-link"
+                            >
+                                БКС Экспресс
+                                <svg>
+                                    <use xlink:href="sprites.svg#external-link-arrow"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="#"
+                                class="main-footer__subtitle main-footer__subtitle--external-link"
+                            >
+                                БКС Экспресс
+                                <svg>
+                                    <use xlink:href="sprites.svg#external-link-arrow"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="#"
+                                class="main-footer__subtitle main-footer__subtitle--external-link"
+                            >
+                                БКС Экспресс
+                                <svg>
+                                    <use xlink:href="sprites.svg#external-link-arrow"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="#"
+                                class="main-footer__subtitle main-footer__subtitle--external-link"
+                            >
+                                БКС Экспресс
+                                <svg>
+                                    <use xlink:href="sprites.svg#external-link-arrow"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="#"
+                                class="main-footer__subtitle main-footer__subtitle--external-link"
+                            >
+                                БКС Экспресс
+                                <svg>
+                                    <use xlink:href="sprites.svg#external-link-arrow"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="main-footer__phone-number-block border-bottom-block">
+                    <div class="main-footer__subtitle">
+                        Звонок по России бесплатный
+                    </div>
+                    <a 
+                        href="tel:+78005001595"
+                        class="main-footer__phone-number"
+                    >
+                        8 800 500-15-95
+                    </a> 
+                </div>
+                <p class="main-footer__title border-bottom-block">
+                    ООО «БКС - Форекс»<br>
+                    № 045-14117-020000 от 18.11.2021 на осуществление брокерской деятельности. Выдана Банком России. 
+                </p>
+                <div class="main-footer__company-description main-footer__subtitle">
+                    <p>
+                        ООО «БКС - Форекс» имеет лицензию профессионального участника рынка  ценных бумаг № 045-14117-020000 от 18.11.2021 на осуществление  деятельности форекс-дилера, выданную Банком России.
+                        ООО «БКС - Форекс» внесено в реестр лицензированных форекс-дилеров в  разделе профессиональных участников рынка ценных бумаг на официальном  сайте Банка России.
+                        ООО «БКС – Форекс» является членом саморегулируемой организации  «Ассоциация форекс-дилеров», свидетельство от 30.11.2021. Протокол № 48  от 30.11.2021.
+                        Регистрационный номер форекс-дилера в реестре членов АФД – 10.
+                    </p>
+                    <p>
+                        Отображаемая информация о котировках носит исключительно  информационный и ознакомительный характер. С полной и актуальной  информацией о котировках можно ознакомиться в информационной торговой  системе MetaTrader.
+                        Указанная информация о котировках не должна расцениваться в качестве  предоставляемой ООО «БКС-Форекс» консультации, рекомендации,  предложения, побуждения к совершению каких-либо сделок.
+                    </p>
+                    <p>          
+                        Уведомление о рисках:
+                        <br>
+                        Для начала работы с ООО «БКС-Форекс» необходимо ознакомиться с  рисками, связанными с заключением, исполнением и прекращением  обязательств по рамочному договору и отдельным договорам.
+                        Ознакомление с уведомлением о рисках подтверждает, что вы осознаете все риски, с  которыми сопряжена торговля с использованием кредитного плеча.
+                        Предлагаемые к заключению договоры или финансовые инструменты связаны с различными рыночными, валютными, экономическими, политическими,  коммерческими и другими рисками, могут привести к потере внесённых  денежных средств в полном объёме.
+                        До совершения сделок следует  ознакомиться с рисками, с которыми они связаны.
+                        Порядок, сроки и условия осуществления компенсационных выплат (в  случае банкротства / несостоятельности Общества) устанавливаются  требованиями статей 50.1 и 50.2 Федерального закона от 22.04.1996 №  39-ФЗ «О рынке ценных бумаг», Указания Банка России от 13.09.2015 №  3796-У «О требованиях к порядку формирования компенсационного фонда  саморегулируемой организации форекс-дилеров», а также внутренними  документами саморегулируемой организации «Ассоциация форекс-дилеров».
+                    </p>
+                </div>
+                <div class="main-footer__copyright main-footer__subtitle">
+                    <div>
+                        ООО «БКС Форекс» ©
+                    </div>
+                    <div>
+                        Использование материалов
+                        <br>
+                        сайта без разрешения запрещено
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-mobile-menu-burger">
+            <div 
+                class=" footer-mobile-menu-burger__burger-menu open-close-btn"
+            >
+                <button
+                    type="button"
+                    id="mobile-open-close-nav-btn"
+                    class="open-close-btn__btn"
+                >
+                    <svg class="open-icon open-close-btn__icon">
+                        <use xlink:href="sprites.svg#burger-menu"></use>
+                    </svg>
+                    <svg class="close-icon open-close-btn__icon">
+                        <use xlink:href="sprites.svg#close-cross"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
