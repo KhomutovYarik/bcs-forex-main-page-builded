@@ -925,7 +925,7 @@ button.swiper-pagination-bullet {
   --border-radius-sm: 8px;
   --border-radius-md: 16px;
   --border-radius-lg: 32px;
-  --primary-animation: all 0.3s ease-out;
+  --primary-animation: all 0.3s ease-out, transform 0s;
   --modal-window-animation-duration: 0.3s;
 }
 
@@ -962,7 +962,7 @@ button.swiper-pagination-bullet {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-  transition: all 0.15s ease-in;
+  transition: color 0.15s ease-in, background-color 0.15s ease-in;
 }
 #updated-bcs-design button {
   padding: 0;
