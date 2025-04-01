@@ -10589,31 +10589,63 @@ class ExpandingNavigation {
 new ExpandingNavigation('.main-header-navigation__navigation');
 
 // большой слайдер в хэдере
-const HEADER_FEATURES_SLIDER_SECTION_CLASSNAME = 'header-features-slider-section';
-const HEADER_FEATURES_SLIDER_SECTION_BACKGROUND_VARIANTS = [
-    `${HEADER_FEATURES_SLIDER_SECTION_CLASSNAME}--bg-variant-1`,
-    `${HEADER_FEATURES_SLIDER_SECTION_CLASSNAME}--bg-variant-2`
-];
+class HeaderSectionBannerSlider {
+    constructor(sliderSelector, sectionBackgroundClassName) {
+        this.slider = document.querySelector(sliderSelector);
+        this.slidesList = this.slider?.querySelectorAll(`${sliderSelector} .swiper-slide`);
+        this.background = this.slider?.querySelector(`.${sectionBackgroundClassName}`);
+        this.backgroundsList = this.background.querySelectorAll(`.${sectionBackgroundClassName}`);
 
-const headerFeaturesSliderSection = document.querySelector(`.${HEADER_FEATURES_SLIDER_SECTION_CLASSNAME}`);
-
-new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.header-features-large-slider', {
-    loop: true,
-    spaceBetween: 10,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-    },
-    noSwiping: true,
-    noSwipingClass: 'swiper-slide',
-    on: {
-        slideChange({ activeIndex }) {
-            // console.log(e)
-            // console.log(headerFeaturesSliderSection.classList);
-            headerFeaturesSliderSection.classList.add(`${HEADER_FEATURES_SLIDER_SECTION_BACKGROUND_VARIANTS[activeIndex % HEADER_FEATURES_SLIDER_SECTION_BACKGROUND_VARIANTS.length]}`); 
+        if (this.slidesList?.length > 0 && this.background) {
+            // this.initGradientList();
+            this.changeBackground(0);
+            this.initSlider(sliderSelector);
         }
     }
-});
+
+    // initGradientList() {
+    //     this.gradientList = [];
+
+    //     this.slidesList?.forEach((slide) => {
+    //         this.gradientList.push(`linear-gradient(${slide.dataset['degree']}deg, ${slide.dataset['color-1']}, ${slide.dataset['color-2']})`);
+    //     });
+    // }
+
+    initSlider(sliderSelector) {
+        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"](sliderSelector, {
+            loop: true,
+            spaceBetween: 10,
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false
+            },
+            noSwiping: true,
+            noSwipingClass: 'swiper-slide',
+            on: {
+                slideChange: ({ realIndex }) => {
+                    this.changeBackground(realIndex);
+                }
+            }
+        });
+    }
+
+    changeBackground(backgroundIndex) {
+        const previousBackgroundIndex = this.getPreviousBackgroundIndex(backgroundIndex); 
+
+        this.backgroundsList[previousBackgroundIndex % this.backgroundsList.length].style.opacity = 0;
+        this.backgroundsList[backgroundIndex % this.backgroundsList.length].style.opacity = 1;
+    }
+
+    getPreviousBackgroundIndex(currentBackgroundIndex) {
+        if (currentBackgroundIndex === 0) {
+            return this.backgroundsList.length - 1;
+        }
+
+        return currentBackgroundIndex - 1;
+    }
+}
+
+new HeaderSectionBannerSlider('.header-features-large-slider', 'header-features-slider-section__background');
 
 // секция с бегущей строкой
 new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.currencies-running-line-slider', {

@@ -1008,6 +1008,9 @@ body[class=updated-bcs-design] {
 .updated-bcs-design .slider-block--autoplay .swiper-wrapper {
   transition-timing-function: linear !important;
 }
+.updated-bcs-design .no-scroll {
+  overflow: hidden;
+}
 .updated-bcs-design .underlined {
   text-decoration: underline;
 }
@@ -1284,9 +1287,6 @@ body[class=updated-bcs-design] {
   .updated-bcs-design .intro-feature-section__subtitle {
     font-size: 16px;
     line-height: 1.25;
-  }
-  .updated-bcs-design .intro-feature-section__slider-block {
-    margin-top: 32px;
   }
   .updated-bcs-design .intro-feature-section__horizontal-elements-list {
     gap: 0;
@@ -1761,21 +1761,20 @@ body[class=updated-bcs-design] {
 .updated-bcs-design .header-features-slider-section {
   padding-top: 16px;
 }
+.updated-bcs-design .header-features-slider-section__slider {
+  position: relative;
+}
 .updated-bcs-design .header-features-slider-section__background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border-radius: var(--border-radius-lg);
-  background: linear-gradient(45deg, #8877EC, #5C4BC2, #B292EE);
-  background-size: 200% 200%;
-  background-position: 0% 100%;
-  transition: all 0.5s ease;
-}
-.updated-bcs-design .header-features-slider-section--bg-variant-1 .header-features-slider-section__background {
-  background-position: 0% 100%;
-}
-.updated-bcs-design .header-features-slider-section--bg-variant-2 .header-features-slider-section__background {
-  background-position: 100% 0%;
+  transition: all 0.5s ease-out;
 }
 .updated-bcs-design .header-features-slider-section .large-header-banner {
   display: flex;
+  justify-content: space-between;
   gap: 70px;
   padding: 128px 0 60px 56px;
   border-radius: var(--border-radius-lg);
@@ -1812,9 +1811,6 @@ body[class=updated-bcs-design] {
   font-size: 20px;
   line-height: 1.4;
   color: var(--secondary-text-color-opacity);
-}
-.updated-bcs-design .header-features-slider-section .large-header-banner--bg-variant-1 {
-  background: linear-gradient(140.47deg, #6444BF 33.69%, #ABB4FA 78.24%);
 }
 .updated-bcs-design .header-features-slider-section .large-header-banner--landing {
   padding: 118px 0 56px 56px;
@@ -2294,10 +2290,12 @@ body[class=updated-bcs-design] {
     display: block;
   }
 }
-@media (max-width: 576px) {
+@media (max-width: 992px) {
   .updated-bcs-design .main-footer {
-    padding: 20px 0;
+    padding: 20px 0 92px;
   }
+}
+@media (max-width: 576px) {
   .updated-bcs-design .main-footer__content {
     gap: 24px;
   }
