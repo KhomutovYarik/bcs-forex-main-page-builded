@@ -21209,7 +21209,8 @@ class HeaderSectionBannerSlider {
     }
 
     initSlider(sliderSelector) {
-        const SLIDE_ELEMENTS_X_OFFSET = 120;
+        const SLIDE_TEXT_X_OFFSET = 120;
+        const SLIDE_BTN_X_OFFSET = SLIDE_TEXT_X_OFFSET - 30;
 
         const SLIDE_TITLE_OPACITY = 0.5;
         const SLIDE_SUBTITLE_OPACITY = SLIDE_TITLE_OPACITY + 0.2;
@@ -21236,9 +21237,9 @@ class HeaderSectionBannerSlider {
                     const slideSubtitle = currentSlide.querySelector('.large-header-banner__subtitle');
                     const slideBtn = currentSlide.querySelector('.large-header-banner__btn');
 
-                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_TITLE_OPACITY });
-                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
-                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET });
+                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_TEXT_X_OFFSET, opacity: SLIDE_TITLE_OPACITY });
+                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_TEXT_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
+                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_BTN_X_OFFSET });
                 }
             }
         });
