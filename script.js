@@ -21216,7 +21216,7 @@ class HeaderSectionBannerSlider {
 
         const SLIDE_TITLE_ANIMATION_DURATION = 0.6;
         const SLIDE_SUBTITLE_ANIMATION_DURATION = SLIDE_TITLE_ANIMATION_DURATION + 0.2;
-        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.1;
+        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.02;
 
         new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"](sliderSelector, {
             loop: true,
