@@ -21209,6 +21209,9 @@ class HeaderSectionBannerSlider {
     }
 
     initSlider(sliderSelector) {
+        //анимация при загрузке страницы
+
+        // анимация переключения слайда
         const SLIDE_ELEMENTS_X_OFFSET = 120;
 
         const SLIDE_TITLE_OPACITY = 0.5;
@@ -21216,7 +21219,9 @@ class HeaderSectionBannerSlider {
 
         const SLIDE_TITLE_ANIMATION_DURATION = 0.6;
         const SLIDE_SUBTITLE_ANIMATION_DURATION = SLIDE_TITLE_ANIMATION_DURATION + 0.2;
-        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.02;
+        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.15;
+
+        let isInitialAnimation = true;
 
         new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"](sliderSelector, {
             loop: true,
@@ -21236,9 +21241,13 @@ class HeaderSectionBannerSlider {
                     const slideSubtitle = currentSlide.querySelector('.large-header-banner__subtitle');
                     const slideBtn = currentSlide.querySelector('.large-header-banner__btn');
 
-                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_TITLE_OPACITY });
-                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
-                    gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET });
+                    if (!isInitialAnimation) {
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_TITLE_OPACITY });
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET });
+                    } else {
+                        isInitialAnimation = false;
+                    }
                 }
             }
         });
