@@ -925,7 +925,8 @@ button.swiper-pagination-bullet {
   --border-radius-sm: 8px;
   --border-radius-md: 16px;
   --border-radius-lg: 32px;
-  --primary-animation: all 0.3s ease-out, transform 0s;
+  --default-animation-time: 0.3s;
+  --primary-animation: color var(--default-animation-time) ease-out, background-color var(--default-animation-time) ease-out, box-shadow var(--default-animation-time) ease-out;
   --modal-window-animation-duration: 0.3s;
 }
 
@@ -1221,7 +1222,7 @@ button.swiper-pagination-bullet {
   background-color: var(--primary-color-landing);
 }
 #updated-bcs-design .icon-btn--navigation {
-  transition: all 0.2s ease-in;
+  transition: all 0.2s ease-out;
 }
 #updated-bcs-design .icon-btn--navigation:focus, #updated-bcs-design .icon-btn--navigation:hover, #updated-bcs-design .icon-btn--navigation:active {
   background-color: var(--primary-background-color-opacity);
@@ -1530,11 +1531,12 @@ button.swiper-pagination-bullet {
 }
 @media (max-width: 992px) {
   #updated-bcs-design .main-header .dropdown-navigation-element .navigation-titled-element {
-    padding: 16px;
+    padding: 0 16px;
   }
   #updated-bcs-design .main-header .dropdown-navigation-element .navigation-titled-element__content {
     flex-direction: row;
     align-items: center;
+    padding: 16px 0;
   }
   #updated-bcs-design .main-header .dropdown-navigation-element .navigation-titled-element__title {
     font-weight: 400;
@@ -1634,6 +1636,7 @@ button.swiper-pagination-bullet {
     background-color: var(--primary-background-color-opacity);
   }
   #updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:focus) .dropdown-navigation-element__expanded-block, #updated-bcs-design .main-header .dropdown-navigation-element:hover .dropdown-navigation-element__expanded-block, #updated-bcs-design .main-header .dropdown-navigation-element:has(.dropdown-navigation-element__section-link:active) .dropdown-navigation-element__expanded-block, #updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:focus) .dropdown-navigation-element__expanded-block, #updated-bcs-design .main-header .dropdown-navigation-element:has(.navigation-titled-element:active) .dropdown-navigation-element__expanded-block {
+    z-index: 4;
     max-height: 700px;
   }
 }

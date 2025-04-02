@@ -21209,8 +21209,6 @@ class HeaderSectionBannerSlider {
     }
 
     initSlider(sliderSelector) {
-        //анимация при загрузке страницы
-
         // анимация переключения слайда
         const SLIDE_ELEMENTS_X_OFFSET = 120;
 
@@ -21219,7 +21217,7 @@ class HeaderSectionBannerSlider {
 
         const SLIDE_TITLE_ANIMATION_DURATION = 0.6;
         const SLIDE_SUBTITLE_ANIMATION_DURATION = SLIDE_TITLE_ANIMATION_DURATION + 0.2;
-        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.15;
+        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.2;
 
         let isInitialAnimation = true;
 
@@ -21227,7 +21225,7 @@ class HeaderSectionBannerSlider {
             loop: true,
             spaceBetween: 10,
             autoplay: {
-                delay: 10000,
+                delay: 8000,
                 disableOnInteraction: false
             },
             noSwiping: true,
@@ -21246,6 +21244,25 @@ class HeaderSectionBannerSlider {
                         gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
                         gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET });
                     } else {
+                        const firstSlideAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
+
+                        const rotateBtnTimeLine = () => {
+                            const btnTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
+                            btnTimeline
+                                .to(slideBtn, { rotate: 5 })
+                                .to(slideBtn, { rotate: -5 })
+                                .to(slideBtn, { rotate: 5 })
+                                .to(slideBtn, { rotate: 0 });
+
+                            return btnTimeline;
+                        }
+
+                        firstSlideAnimationTimeline
+                            .from(slideTitle, { duration: 1.2, y: 100, opacity: 0 })
+                            .from(slideSubtitle, { duration: 0.8, y: 100, opacity: 0 })
+                            .from(slideBtn, { duration: 0.9, y: 100, opacity: 0 })
+                            .add(rotateBtnTimeLine);
+
                         isInitialAnimation = false;
                     }
                 }
