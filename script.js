@@ -2,6 +2,223 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./js/classes/ExpandingMobileNavigation.js":
+/*!*************************************************!*\
+  !*** ./js/classes/ExpandingMobileNavigation.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class ExpandingNavigation {
+    constructor(navSelector) {
+        this.navigation = document.querySelector(navSelector);
+        this.expandingNavItems = this.navigation?.querySelectorAll('.dropdown-navigation-element:not(.dropdown-navigation-element--no-expand)');
+
+        if (this.expandingNavItems?.length > 0) {
+            this.init();
+        }
+    }
+
+    init() {
+        for (const navItem of this.expandingNavItems) {
+            const expandBtn = navItem.querySelector('.dropdown-navigation-element__expand-btn');
+
+            expandBtn?.addEventListener('click', (e) => {
+                navItem.classList.toggle('opened');
+            });
+        }
+    }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ExpandingNavigation);
+
+/***/ }),
+
+/***/ "./js/classes/HeaderSectionBannerSlider.js":
+/*!*************************************************!*\
+  !*** ./js/classes/HeaderSectionBannerSlider.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
+/* harmony import */ var swiper_css_bundle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/css/bundle */ "./node_modules/swiper/swiper-bundle.css");
+
+
+
+
+
+class HeaderSectionBannerSlider {
+    constructor(sliderSelector, sectionBackgroundClassName) {
+        this.slider = document.querySelector(sliderSelector);
+        this.slidesList =  this.slider?.querySelectorAll('.swiper-slide');
+        this.background = this.slider?.querySelector(`.${sectionBackgroundClassName}`);
+        this.backgroundsList = this.background.querySelectorAll(`.${sectionBackgroundClassName}`);
+
+        if (this.slidesList?.length > 0 && this.background) {
+            this.changeBackground(0);
+            this.initSlider(sliderSelector);
+        }
+    }
+
+    initSlider(sliderSelector) {
+        // анимация переключения слайда
+        const SLIDE_ELEMENTS_X_OFFSET = 120;
+
+        const SLIDE_TITLE_OPACITY = 0.5;
+        const SLIDE_SUBTITLE_OPACITY = SLIDE_TITLE_OPACITY + 0.2;
+
+        const SLIDE_TITLE_ANIMATION_DURATION = 0.6;
+        const SLIDE_SUBTITLE_ANIMATION_DURATION = SLIDE_TITLE_ANIMATION_DURATION + 0.2;
+        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.2;
+
+        let isInitialAnimation = true;
+
+        new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](sliderSelector, {
+            loop: true,
+            spaceBetween: 10,
+            autoplay: {
+                delay: 8000,
+                disableOnInteraction: false
+            },
+            noSwiping: true,
+            noSwipingClass: 'swiper-slide',
+            on: {
+                slideChange: ({ realIndex }) => {
+                    this.changeBackground(realIndex);
+                    
+                    const currentSlide = this.slidesList[realIndex];
+                    const slideTitle = currentSlide.querySelector('.large-header-banner__title');
+                    const slideSubtitle = currentSlide.querySelector('.large-header-banner__subtitle');
+                    const slideBtn = currentSlide.querySelector('.large-header-banner__btn');
+
+                    if (!isInitialAnimation) {
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_TITLE_OPACITY });
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET });
+                    } else {
+                        const firstSlideAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
+
+                        const rotateBtnTimeLine = () => {
+                            const btnTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
+                            btnTimeline
+                                .to(slideBtn, { rotate: 5 })
+                                .to(slideBtn, { rotate: -5 })
+                                .to(slideBtn, { rotate: 5 })
+                                .to(slideBtn, { rotate: 0 });
+
+                            return btnTimeline;
+                        }
+
+                        firstSlideAnimationTimeline
+                            .from(slideTitle, { duration: 1.2, x: 130, opacity: 0 })
+                            .from(slideSubtitle, { duration: 0.8, x: 130, opacity: 0 })
+                            .from(slideBtn, { duration: 0.9, x: 130, opacity: 0 })
+                            .add(rotateBtnTimeLine);
+
+                        isInitialAnimation = false;
+                    }
+                }
+            }
+        });
+    }
+
+    changeBackground(backgroundIndex) {
+        const previousBackgroundIndex = this.getPreviousBackgroundIndex(backgroundIndex); 
+
+        this.backgroundsList[previousBackgroundIndex % this.backgroundsList.length].style.opacity = 0;
+        this.backgroundsList[backgroundIndex % this.backgroundsList.length].style.opacity = 1;
+    }
+
+    getPreviousBackgroundIndex(currentBackgroundIndex) {
+        if (currentBackgroundIndex === 0) {
+            return this.backgroundsList.length - 1;
+        }
+
+        return currentBackgroundIndex - 1;
+    }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeaderSectionBannerSlider);
+
+/***/ }),
+
+/***/ "./js/classes/Modal.js":
+/*!*****************************!*\
+  !*** ./js/classes/Modal.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+
+class Modal {
+    constructor(modalSelector, openBtnSelector) {
+        this.modal = document.querySelector(modalSelector);
+        this.modalWindow = this.modal?.querySelector('.modal-window__window');
+        this.modalBackground = this.modal?.querySelector('.modal-window__background');
+
+        this.openBtn = document.querySelector(openBtnSelector);
+        this.closeBtn = this.modal?.querySelector('.modal-window__close-btn');
+        
+        if (this.modal && this.modalWindow && this.openBtn && this.modalBackground && this.closeBtn) {
+            this.init();
+        }
+    }
+
+    init() {
+        this.addListenersForOuterCloseBtn();
+        this.addListenersForInnerCloseBtn();
+
+        this.modalBackground.addEventListener('click', () => {
+            this.closeModal();
+        });
+    }
+
+    addListenersForInnerCloseBtn() {
+        this.closeBtn.addEventListener('click', () => {
+            this.closeModal();
+        });
+    }
+
+    addListenersForOuterCloseBtn() {
+        this.openBtn.addEventListener('click', () => {
+            if (this.modal.classList.contains('opened')) {
+                this.closeModal();
+            } else {
+                this.openModal();
+            }
+        })
+    }
+
+    openModal() {
+        this.modal.classList.add('opened');
+        this.openBtn.classList.add('opened');
+        document.body.classList.add('no-scroll');
+        document.body.dataset.lenisPrevent = '';
+    }
+
+    closeModal() {
+        this.modal.classList.remove('opened');
+        this.openBtn.classList.remove('opened');
+        document.body.classList.remove('no-scroll');
+        delete document.body.dataset.lenisPrevent;
+    }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
+
+/***/ }),
+
 /***/ "./node_modules/gsap/CSSPlugin.js":
 /*!****************************************!*\
   !*** ./node_modules/gsap/CSSPlugin.js ***!
@@ -21084,6 +21301,35 @@ _shared_swiper_core_mjs__WEBPACK_IMPORTED_MODULE_0__.S.use(modules);
 
 /***/ }),
 
+/***/ "./node_modules/swiper/swiper.mjs":
+/*!****************************************!*\
+  !*** ./node_modules/swiper/swiper.mjs ***!
+  \****************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Swiper: () => (/* reexport safe */ _shared_swiper_core_mjs__WEBPACK_IMPORTED_MODULE_0__.S),
+/* harmony export */   "default": () => (/* reexport safe */ _shared_swiper_core_mjs__WEBPACK_IMPORTED_MODULE_0__.S)
+/* harmony export */ });
+/* harmony import */ var _shared_swiper_core_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./shared/swiper-core.mjs */ "./node_modules/swiper/shared/swiper-core.mjs");
+/**
+ * Swiper 11.2.4
+ * Most modern mobile touch slider and framework with hardware accelerated transitions
+ * https://swiperjs.com
+ *
+ * Copyright 2014-2025 Vladimir Kharlampidi
+ *
+ * Released under the MIT License
+ *
+ * Released on: February 14, 2025
+ */
+
+
+
+
+/***/ }),
+
 /***/ "./script.js":
 /*!*******************!*\
   !*** ./script.js ***!
@@ -21091,11 +21337,14 @@ _shared_swiper_core_mjs__WEBPACK_IMPORTED_MODULE_0__.S.use(modules);
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lenis__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lenis */ "./node_modules/lenis/dist/lenis.mjs");
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! gsap/ScrollTrigger */ "./node_modules/gsap/ScrollTrigger.js");
+/* harmony import */ var lenis__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lenis */ "./node_modules/lenis/dist/lenis.mjs");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! gsap/ScrollTrigger */ "./node_modules/gsap/ScrollTrigger.js");
 /* harmony import */ var swiper_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper/bundle */ "./node_modules/swiper/swiper-bundle.mjs");
 /* harmony import */ var swiper_css_bundle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/css/bundle */ "./node_modules/swiper/swiper-bundle.css");
+/* harmony import */ var _js_classes_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/classes/Modal */ "./js/classes/Modal.js");
+/* harmony import */ var _js_classes_ExpandingMobileNavigation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/classes/ExpandingMobileNavigation */ "./js/classes/ExpandingMobileNavigation.js");
+/* harmony import */ var _js_classes_HeaderSectionBannerSlider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/classes/HeaderSectionBannerSlider */ "./js/classes/HeaderSectionBannerSlider.js");
 
 
 
@@ -21104,239 +21353,132 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const LG_BREAKPOINT = 992;
-const MD_BREAKPOINT = 768;
-const SM_BREAKPOINT = 576;
 
-gsap__WEBPACK_IMPORTED_MODULE_2__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
-const lenis = new lenis__WEBPACK_IMPORTED_MODULE_4__["default"]({
-    content: document.querySelector('.smooth-scroll-content'),
-    smoothWheel: true,
-    autoRaf: true,
-});
 
-lenis.on('scroll', gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_3__["default"].update);
 
-gsap__WEBPACK_IMPORTED_MODULE_2__["default"].ticker.add((time) => {
-  lenis.raf(time * 1000); // Convert time from seconds to milliseconds
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const LG_BREAKPOINT = 992;
+    const MD_BREAKPOINT = 768;
+    const SM_BREAKPOINT = 576;
+    
+    // активация скролла на главной странице
+    const smoothScrollContent = document.querySelector('.smooth-scroll-content');
 
-gsap__WEBPACK_IMPORTED_MODULE_2__["default"].ticker.lagSmoothing(0);
-
-// мобильный хэдер
-class Modal {
-    constructor(modalSelector, openBtnSelector) {
-        this.modal = document.querySelector(modalSelector);
-        this.modalContent = this.modal?.querySelector('.modal-window__window');
-        this.modalBackground = this.modal?.querySelector('.modal-window__background');
-
-        this.openBtn = document.querySelector(openBtnSelector);
-        this.closeBtn = this.modal?.querySelector('.modal-window__close-btn');
+    if (smoothScrollContent) {
+        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"]);
         
-        if (this.modal && this.modalContent && this.openBtn && this.closeBtn) {
-            this.init();
-        }
-    }
-
-    init() {
-        this.addListenersForOuterCloseBtn();
-        this.addListenersForInnerCloseBtn();
-
-        this.modalBackground.addEventListener('click', () => {
-            this.closeModal();
+        const lenis = new lenis__WEBPACK_IMPORTED_MODULE_7__["default"]({
+            content: smoothScrollContent,
+            smoothWheel: true,
+            autoRaf: true,
         });
-    }
-
-    addListenersForInnerCloseBtn() {
-        this.closeBtn.addEventListener('click', () => {
-            this.closeModal();
+    
+        lenis.on('scroll', gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].update);
+        
+        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].ticker.add((time) => {
+          lenis.raf(time * 1000);
         });
+        
+        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].ticker.lagSmoothing(0);
     }
 
-    addListenersForOuterCloseBtn() {
-        this.openBtn.addEventListener('click', () => {
-            this.modal.classList.toggle('opened');
-            this.openBtn.classList.toggle('opened');
-        })
-    }
+    const threeCardsAnimationSections = document.querySelectorAll('.three-cards-animation-section');
 
-    closeModal() {
-        this.modal.classList.remove('opened');
-        this.openBtn.classList.remove('opened');
-    }
-}
+    threeCardsAnimationSections.forEach((threeCardsSection) => {
+        const leftCard = threeCardsSection.querySelector('.three-cards-animation-section__left-card');
+        const middleCard = threeCardsSection.querySelector('.three-cards-animation-section__middle-card');
+        const rightCard = threeCardsSection.querySelector('.three-cards-animation-section__right-card');
 
-new Modal('.main-header-navigation', '#mobile-open-close-nav-btn');
+        const scrollTrigger = {
+            trigger: threeCardsSection,
+            start: '10% 70%',
+            end: '50% center',
+            scrub: true,
+            // once: true,
+            markers: true
+        };
 
-class ExpandingNavigation {
-    constructor(navSelector) {
-        this.navigation = document.querySelector(navSelector);
-        this.expandingNavItems = this.navigation?.querySelectorAll('.dropdown-navigation-element:not(.dropdown-navigation-element--no-expand)');
-
-        if (this.expandingNavItems?.length > 0) {
-            this.init();
-        }
-    }
-
-    init() {
-        for (const navItem of this.expandingNavItems) {
-            const expandBtn = navItem.querySelector('.dropdown-navigation-element__expand-btn');
-
-            expandBtn?.addEventListener('click', (e) => {
-                navItem.classList.toggle('opened');
-
-                e.stopPropagation();
-            });
-        }
-    }
-}
-
-new ExpandingNavigation('.main-header-navigation__navigation');
-
-// большой слайдер в хэдере
-class HeaderSectionBannerSlider {
-    constructor(sliderSelector, sectionBackgroundClassName) {
-        this.slider = document.querySelector(sliderSelector);
-        this.slidesList =  this.slider?.querySelectorAll('.swiper-slide');
-        this.background = this.slider?.querySelector(`.${sectionBackgroundClassName}`);
-        this.backgroundsList = this.background.querySelectorAll(`.${sectionBackgroundClassName}`);
-
-        if (this.slidesList?.length > 0 && this.background) {
-            this.changeBackground(0);
-            this.initSlider(sliderSelector);
-        }
-    }
-
-    initSlider(sliderSelector) {
-        // анимация переключения слайда
-        const SLIDE_ELEMENTS_X_OFFSET = 120;
-
-        const SLIDE_TITLE_OPACITY = 0.5;
-        const SLIDE_SUBTITLE_OPACITY = SLIDE_TITLE_OPACITY + 0.2;
-
-        const SLIDE_TITLE_ANIMATION_DURATION = 0.6;
-        const SLIDE_SUBTITLE_ANIMATION_DURATION = SLIDE_TITLE_ANIMATION_DURATION + 0.2;
-        const SLIDE_BTN_ANIMATION_DURATION = SLIDE_SUBTITLE_ANIMATION_DURATION + 0.2;
-
-        let isInitialAnimation = true;
-
-        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"](sliderSelector, {
-            loop: true,
-            spaceBetween: 10,
-            autoplay: {
-                delay: 8000,
-                disableOnInteraction: false
-            },
-            noSwiping: true,
-            noSwipingClass: 'swiper-slide',
-            on: {
-                slideChange: ({ realIndex }) => {
-                    this.changeBackground(realIndex);
-                    
-                    const currentSlide = this.slidesList[realIndex];
-                    const slideTitle = currentSlide.querySelector('.large-header-banner__title');
-                    const slideSubtitle = currentSlide.querySelector('.large-header-banner__subtitle');
-                    const slideBtn = currentSlide.querySelector('.large-header-banner__btn');
-
-                    if (!isInitialAnimation) {
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_TITLE_OPACITY });
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET });
-                    } else {
-                        const firstSlideAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
-
-                        const rotateBtnTimeLine = () => {
-                            const btnTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
-                            btnTimeline
-                                .to(slideBtn, { rotate: 5 })
-                                .to(slideBtn, { rotate: -5 })
-                                .to(slideBtn, { rotate: 5 })
-                                .to(slideBtn, { rotate: 0 });
-
-                            return btnTimeline;
-                        }
-
-                        firstSlideAnimationTimeline
-                            .from(slideTitle, { duration: 1.2, y: 100, opacity: 0 })
-                            .from(slideSubtitle, { duration: 0.8, y: 100, opacity: 0 })
-                            .from(slideBtn, { duration: 0.9, y: 100, opacity: 0 })
-                            .add(rotateBtnTimeLine);
-
-                        isInitialAnimation = false;
-                    }
-                }
-            }
+        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(leftCard, { 
+            x: -300,
+            opacity: 0.3,
+            scrollTrigger
         });
-    }
 
-    changeBackground(backgroundIndex) {
-        const previousBackgroundIndex = this.getPreviousBackgroundIndex(backgroundIndex); 
+        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(middleCard, { 
+            y: 300,
+            opacity: 0.3,
+            scrollTrigger
+        });
 
-        this.backgroundsList[previousBackgroundIndex % this.backgroundsList.length].style.opacity = 0;
-        this.backgroundsList[backgroundIndex % this.backgroundsList.length].style.opacity = 1;
-    }
-
-    getPreviousBackgroundIndex(currentBackgroundIndex) {
-        if (currentBackgroundIndex === 0) {
-            return this.backgroundsList.length - 1;
-        }
-
-        return currentBackgroundIndex - 1;
-    }
-}
-
-new HeaderSectionBannerSlider('.header-features-large-slider', 'header-features-slider-section__background');
-
-// секция с бегущей строкой
-new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.currencies-running-line-slider', {
-    loop: true,
-    freeMode: true,
-    slidesPerView: 'auto',
-    speed: 10000,
-    autoplay: {
-        delay: 0,
-        disableOnInteraction: false
-    },
-    noSwiping: true,
-    noSwipingClass: 'swiper-slide',
-});
-
-if (window.screen.width <= LG_BREAKPOINT) {
-    const defaultSliderThreeElementsSettings = {
-        slidesPerView: 1.3,
-        spaceBetween: 20,
-        breakpoints: {
-            [SM_BREAKPOINT + 1]: {
-                slidesPerView: 1.6
-            },
-            [MD_BREAKPOINT + 1]: {
-                slidesPerView: 2.3
-            }
-        }
-    }
-
-    const defaultSliderFourElementsSettings = {
-        slidesPerView: 'auto',
-        spaceBetween: 20
-    }
-
-    // мы знаем как вам заработать на форекс
-    new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.analytics-news-section-slider', defaultSliderThreeElementsSettings);
-
-    // начать торговать легко
-    new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.get-started-tutorial-slider', {
-        ...defaultSliderThreeElementsSettings
+        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(rightCard, { 
+            x: 300,
+            opacity: 0.3,
+            scrollTrigger
+        });
     });
 
-    // курсы на рынке форекс
-    new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.currencies-brief-news-section-slider', defaultSliderThreeElementsSettings);
+        
 
-    // страница CFD слайдер с преимуществами инструмента
-    new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.instrument-advantages-section-slider', defaultSliderFourElementsSettings);
-
-    new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.get-started-4-steps-section-slider', defaultSliderFourElementsSettings);
-}
+    
+    // мобильный хэдер
+    new _js_classes_Modal__WEBPACK_IMPORTED_MODULE_2__["default"]('.main-header-navigation', '#mobile-open-close-nav-btn');
+    new _js_classes_ExpandingMobileNavigation__WEBPACK_IMPORTED_MODULE_3__["default"]('.main-header-navigation__navigation');
+    
+    // большой слайдер в хэдере
+    new _js_classes_HeaderSectionBannerSlider__WEBPACK_IMPORTED_MODULE_4__["default"]('.header-features-large-slider', 'header-features-slider-section__background');
+    
+    // секция с бегущей строкой
+    new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.currencies-running-line-slider', {
+        loop: true,
+        freeMode: true,
+        slidesPerView: 'auto',
+        speed: 10000,
+        autoplay: {
+            delay: 0,
+            disableOnInteraction: false
+        },
+        noSwiping: true,
+        noSwipingClass: 'swiper-slide',
+    });
+    
+    if (window.screen.width <= LG_BREAKPOINT) {
+        const defaultSliderThreeElementsSettings = {
+            slidesPerView: 1.3,
+            spaceBetween: 20,
+            breakpoints: {
+                [SM_BREAKPOINT + 1]: {
+                    slidesPerView: 1.6
+                },
+                [MD_BREAKPOINT + 1]: {
+                    slidesPerView: 2.3
+                }
+            }
+        }
+    
+        const defaultSliderFourElementsSettings = {
+            slidesPerView: 'auto',
+            spaceBetween: 20
+        }
+    
+        // мы знаем как вам заработать на форекс
+        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.analytics-news-section-slider', defaultSliderThreeElementsSettings);
+    
+        // начать торговать легко
+        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.get-started-tutorial-slider', {
+            ...defaultSliderThreeElementsSettings
+        });
+    
+        // курсы на рынке форекс
+        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.currencies-brief-news-section-slider', defaultSliderThreeElementsSettings);
+    
+        // страница CFD слайдер с преимуществами инструмента
+        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.instrument-advantages-section-slider', defaultSliderFourElementsSettings);
+    
+        // страница CFD начни торговать за 4 шага
+        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.get-started-4-steps-section-slider', defaultSliderFourElementsSettings);
+    }
+});
 
 /***/ }),
 
@@ -21417,8 +21559,6 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _script__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./script */ "./script.js");
 /* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles.scss */ "./styles.scss");
-// import './script'; // скрипты для главной
-// import './styles.scss'; //стили для главной
 
 
 })();
