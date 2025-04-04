@@ -21383,43 +21383,162 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap__WEBPACK_IMPORTED_MODULE_5__["default"].ticker.lagSmoothing(0);
     }
 
-    const threeCardsAnimationSections = document.querySelectorAll('.three-cards-animation-section');
+    if (gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].isTouch !== 1) {
+        const threeCardsAnimationSections = document.querySelectorAll('.three-cards-animation-section');
 
-    threeCardsAnimationSections.forEach((threeCardsSection) => {
-        const leftCard = threeCardsSection.querySelector('.three-cards-animation-section__left-card');
-        const middleCard = threeCardsSection.querySelector('.three-cards-animation-section__middle-card');
-        const rightCard = threeCardsSection.querySelector('.three-cards-animation-section__right-card');
-
-        const scrollTrigger = {
-            trigger: threeCardsSection,
-            start: '10% 70%',
-            end: '50% center',
-            scrub: true,
-            // once: true,
-            markers: true
-        };
-
-        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(leftCard, { 
-            x: -300,
-            opacity: 0.3,
-            scrollTrigger
+        threeCardsAnimationSections.forEach((threeCardsSection) => {
+            // const titleLeftPart = threeCardsSection.querySelector('.three-cards-animation-section__left-title-part');
+            // const titleRightPart = threeCardsSection.querySelector('.three-cards-animation-section__right-title-part');
+            const content = threeCardsSection.querySelector('.three-cards-animation-section__content');
+            
+            const title = content?.querySelector('.three-cards-animation-section__title');
+            const subtitle = content?.querySelector('.three-cards-animation-section__subtitle');
+    
+            const leftCard = content?.querySelector('.three-cards-animation-section__left-card');
+            const middleCard = content?.querySelector('.three-cards-animation-section__middle-card');
+            const rightCard = content?.querySelector('.three-cards-animation-section__right-card');
+    
+            const seeMoreBtn = content?.querySelector('.three-cards-animation-section__see-more-btn');
+    
+            const scrollTrigger = {
+                trigger: content,
+                start: 'top bottom',
+                end: '50% 45%',
+                scrub: true,
+                // once: true,
+                toggleClass: 'animated'
+            };
+    
+            // gsap.from(titleLeftPart, {
+            //     x: -150,
+            //     opacity: 0.3,
+            //     scrollTrigger: {
+            //         ...scrollTrigger,
+            //         start: '10% 90%',
+            //         end: '50% 80%'
+            //     }
+            // });
+    
+            // gsap.from(titleRightPart, {
+            //     x: 150,
+            //     opacity: 0.3,
+            //     scrollTrigger: {
+            //         ...scrollTrigger,
+            //         start: '10% 90%',
+            //         end: '50% 80%'
+            //     }
+            // });
+    
+            const titleSubtitleTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({ 
+                scrollTrigger: {
+                    trigger: content,
+                    start: 'top bottom',
+                    end: '30% 85%',
+                    scrub: true
+                }
+             });
+    
+            titleSubtitleTimeline
+                .from(title, { y: 100, opacity: 0 })
+                .from(subtitle, { y: 100, opacity: 0 })
+    
+            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(leftCard, { 
+                x: -300,
+                opacity: 0.3,
+                scrollTrigger,
+            });
+    
+            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(middleCard, { 
+                y: 300,
+                opacity: 0.3,
+                scrollTrigger
+            });
+    
+            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(rightCard, { 
+                x: 300,
+                opacity: 0.3,
+                scrollTrigger
+            });
+    
+            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(seeMoreBtn, {
+                y: 100,
+                opacity: 0.3,
+                scrollTrigger: {
+                    trigger: seeMoreBtn,
+                    start: '-150 90%',
+                    end: '0 80%',
+                    scrub: true,
+                }
+            })
         });
-
-        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(middleCard, { 
-            y: 300,
-            opacity: 0.3,
-            scrollTrigger
+    
+        const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
+    
+        onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
+            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(onlyOpacitySection, {
+                opacity: 0.1,
+                scrollTrigger: {
+                    trigger: onlyOpacitySection,
+                    start: 'top 90%',
+                    end: 'bottom 70%',
+                    scrub: true,
+                }
+            });
         });
-
-        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(rightCard, { 
-            x: 300,
-            opacity: 0.3,
-            scrollTrigger
+    
+        const promoFeatureAnimationsSections = document.querySelectorAll('.promo-feature-animation-section');
+    
+        promoFeatureAnimationsSections.forEach((promoFeatureSection) => {
+            const promoImg = promoFeatureSection.querySelector('.promo-feature-animation-section__promo-img');
+            const title = promoFeatureSection.querySelector('.promo-feature-animation-section__title');
+            const subtitle = promoFeatureSection.querySelector('.promo-feature-animation-section__subtitle');
+            const seeMoreBtn = promoFeatureSection.querySelector('.promo-feature-animation-section__see-more-btn');
+    
+            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(promoImg, { 
+                opacity: 0.3,
+                y: 200,
+                scrollTrigger: {
+                    trigger: promoImg,
+                    start: '-400 80%',
+                    end: 'center 90%',
+                    scrub: true
+                }
+             });
+    
+             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(title, {
+                opacity: 0.3,
+                x: 100,
+                scrollTrigger: {
+                    trigger: title,
+                    start: '-250 65%',
+                    end: '50% 70%',
+                    scrub: true
+                }
+             });
+    
+             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(subtitle, {
+                opacity: 0.3,
+                x: 100,
+                scrollTrigger: {
+                    trigger: subtitle,
+                    start: '-250 65%',
+                    end: '50% 70%',
+                    scrub: true
+                }
+             });
+    
+             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(seeMoreBtn, {
+                opacity: 0.3,
+                x: 100,
+                scrollTrigger: {
+                    trigger: seeMoreBtn,
+                    start: '-250 65%',
+                    end: '50% 70%',
+                    scrub: true
+                }
+             });
         });
-    });
-
-        
-
+    }
     
     // мобильный хэдер
     new _js_classes_Modal__WEBPACK_IMPORTED_MODULE_2__["default"]('.main-header-navigation', '#mobile-open-close-nav-btn');

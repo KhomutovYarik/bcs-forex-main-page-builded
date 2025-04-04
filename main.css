@@ -2001,7 +2001,6 @@ button.swiper-pagination-bullet {
   border-radius: var(--border-radius-lg);
   background-color: var(--primary-color);
   color: var(--secondary-text-color);
-  transition: all 0.4s;
 }
 #updated-bcs-design .vertical-card a {
   text-decoration: underline;
@@ -2029,6 +2028,9 @@ button.swiper-pagination-bullet {
   margin-top: 12px;
   font-size: 20px;
   line-height: 28px;
+}
+#updated-bcs-design .vertical-card.amimated {
+  transition: transform 0.4s;
 }
 @media (max-width: 1400px) {
   #updated-bcs-design .vertical-card--no-main-icon {
