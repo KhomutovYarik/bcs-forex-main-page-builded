@@ -56,19 +56,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class HeaderSectionBannerSlider {
-    constructor(sliderSelector, sectionBackgroundClassName) {
-        this.slider = document.querySelector(sliderSelector);
-        this.slidesList =  this.slider?.querySelectorAll('.swiper-slide');
-        this.background = this.slider?.querySelector(`.${sectionBackgroundClassName}`);
-        this.backgroundsList = this.background.querySelectorAll(`.${sectionBackgroundClassName}`);
+    constructor(sectionName) {
+        const SLIDER_SELECTOR = `.${sectionName}__slider`;
+        const SLIDER_BACKGROUNDS_WRAPPER_SELECTOR = `.${sectionName}__backgrounds-wrapper`;
+        const SLIDER_BACKGROUND_SELECTOR = `.${sectionName}__background`;
+        const SLIDER_PAGINATION_SELECTOR = `.${sectionName}__pagination`;
+        const SLIDER_PAGINATION_BULLET_SELECTOR = `.${sectionName}__bullet`;
 
-        if (this.slidesList?.length > 0 && this.background) {
-            this.changeBackground(0);
-            this.initSlider(sliderSelector);
+        this.sectionName = sectionName;
+
+        this.slider = document.querySelector(SLIDER_SELECTOR);
+        this.slidesList =  this.slider?.querySelectorAll('.swiper-slide');
+        this.pagination = this.slider?.querySelector(SLIDER_PAGINATION_SELECTOR);
+        this.backgroundsWrapper = this.slider?.querySelector(SLIDER_BACKGROUNDS_WRAPPER_SELECTOR);
+        this.backgroundsList = this.backgroundsWrapper?.querySelectorAll(SLIDER_BACKGROUND_SELECTOR);
+
+        if (this.slidesList?.length > 0 && this.backgroundsList?.length > 0) {
+            this.changeBackground(0, 0);
+            this.initSlider();
+
+            this.paginationBullets = this.pagination?.querySelectorAll(SLIDER_PAGINATION_BULLET_SELECTOR);
+
+            this.initUserInteractionChecking();
         }
     }
 
-    initSlider(sliderSelector) {
+    initSlider() {
         // анимация переключения слайда
         const SLIDE_ELEMENTS_X_OFFSET = 120;
 
@@ -81,18 +94,25 @@ class HeaderSectionBannerSlider {
 
         let isInitialAnimation = true;
 
-        new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](sliderSelector, {
+        new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](this.slider, {
             loop: true,
             spaceBetween: 10,
             autoplay: {
-                delay: 8000,
+                delay: 7500,
                 disableOnInteraction: false
+            },
+            pagination: {
+                el: this.pagination,
+                clickable: true,
+                renderBullet: (_, className) => `<span class="${className} ${this.sectionName}__bullet"></span>`
             },
             noSwiping: true,
             noSwipingClass: 'swiper-slide',
             on: {
-                slideChange: ({ realIndex }) => {
-                    this.changeBackground(realIndex);
+                slideChange: (e) => {
+                    const { previousRealIndex, realIndex } = e;
+
+                    this.changeBackground(previousRealIndex, realIndex);
                     
                     const currentSlide = this.slidesList[realIndex];
                     const slideTitle = currentSlide.querySelector('.large-header-banner__title');
@@ -100,28 +120,24 @@ class HeaderSectionBannerSlider {
                     const slideBtn = currentSlide.querySelector('.large-header-banner__btn');
 
                     if (!isInitialAnimation) {
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_TITLE_OPACITY });
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET, opacity: SLIDE_SUBTITLE_OPACITY });
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET });
+                        let offsetMultiplier = 1;
+
+                        if (this.isSlideChangedByUser && previousRealIndex > realIndex) {
+                            offsetMultiplier = -1;
+                        }
+
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier, opacity: SLIDE_TITLE_OPACITY });
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier, opacity: SLIDE_SUBTITLE_OPACITY });
+                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier });
+
+                        this.isSlideChangedByUser = false;
                     } else {
                         const firstSlideAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
-
-                        const rotateBtnTimeLine = () => {
-                            const btnTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
-                            btnTimeline
-                                .to(slideBtn, { rotate: 5 })
-                                .to(slideBtn, { rotate: -5 })
-                                .to(slideBtn, { rotate: 5 })
-                                .to(slideBtn, { rotate: 0 });
-
-                            return btnTimeline;
-                        }
 
                         firstSlideAnimationTimeline
                             .from(slideTitle, { duration: 1.2, x: 130, opacity: 0 })
                             .from(slideSubtitle, { duration: 0.8, x: 130, opacity: 0 })
-                            .from(slideBtn, { duration: 0.9, x: 130, opacity: 0 })
-                            .add(rotateBtnTimeLine);
+                            .from(slideBtn, { duration: 0.9, x: 130, opacity: 0 });
 
                         isInitialAnimation = false;
                     }
@@ -130,19 +146,19 @@ class HeaderSectionBannerSlider {
         });
     }
 
-    changeBackground(backgroundIndex) {
-        const previousBackgroundIndex = this.getPreviousBackgroundIndex(backgroundIndex); 
+    initUserInteractionChecking() {
+        this.isSlideChangedByUser = false;
 
-        this.backgroundsList[previousBackgroundIndex % this.backgroundsList.length].style.opacity = 0;
-        this.backgroundsList[backgroundIndex % this.backgroundsList.length].style.opacity = 1;
+        this.paginationBullets.forEach((bullet) => {
+            bullet.addEventListener('click', () => {
+                this.isSlideChangedByUser = true;
+            });
+        });
     }
 
-    getPreviousBackgroundIndex(currentBackgroundIndex) {
-        if (currentBackgroundIndex === 0) {
-            return this.backgroundsList.length - 1;
-        }
-
-        return currentBackgroundIndex - 1;
+    changeBackground(previousBackgroundIndex, realBackgroundIndex) {
+        this.backgroundsList[previousBackgroundIndex % this.backgroundsList.length].style.opacity = 0;
+        this.backgroundsList[realBackgroundIndex % this.backgroundsList.length].style.opacity = 1;
     }
 }
 
@@ -21394,9 +21410,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = content?.querySelector('.three-cards-animation-section__title');
             const subtitle = content?.querySelector('.three-cards-animation-section__subtitle');
     
-            const leftCard = content?.querySelector('.three-cards-animation-section__left-card');
-            const middleCard = content?.querySelector('.three-cards-animation-section__middle-card');
-            const rightCard = content?.querySelector('.three-cards-animation-section__right-card');
+            // const leftCard = content?.querySelector('.three-cards-animation-section__left-card');
+            // const middleCard = content?.querySelector('.three-cards-animation-section__middle-card');
+            // const rightCard = content?.querySelector('.three-cards-animation-section__right-card');
+
+            const cards = content?.querySelectorAll('.three-cards-animation-section__card');
     
             const seeMoreBtn = content?.querySelector('.three-cards-animation-section__see-more-btn');
     
@@ -21405,8 +21423,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 start: 'top bottom',
                 end: '50% 45%',
                 scrub: true,
-                // once: true,
-                toggleClass: 'animated'
+                once: true
             };
     
             // gsap.from(titleLeftPart, {
@@ -21429,36 +21446,63 @@ document.addEventListener('DOMContentLoaded', () => {
             //     }
             // });
     
-            const titleSubtitleTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({ 
-                scrollTrigger: {
-                    trigger: content,
-                    start: 'top bottom',
-                    end: '30% 85%',
-                    scrub: true
-                }
-             });
-    
-            titleSubtitleTimeline
-                .from(title, { y: 100, opacity: 0 })
-                .from(subtitle, { y: 100, opacity: 0 })
-    
-            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(leftCard, { 
-                x: -300,
-                opacity: 0.3,
-                scrollTrigger,
+            if (title || subtitle) {
+                const titleSubtitleTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({ 
+                    scrollTrigger: {
+                        trigger: content,
+                        start: 'top bottom',
+                        end: '30% 85%',
+                        scrub: true,
+                        once: true
+                    }
+                 });
+
+                 if (title) {
+                    titleSubtitleTimeline
+                        .from(title, { y: 100, opacity: 0 })
+                 }
+
+                 if (subtitle) {
+                    titleSubtitleTimeline
+                        .from(subtitle, { y: 100, opacity: 0 });
+                 }
+            }
+
+
+            cards.forEach((card) => {
+                gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(card, { 
+                    y: 300,
+                    opacity: 0.3,
+                    scrollTrigger: {
+                        ...scrollTrigger,
+                        onUpdate: ({ progress }) => {
+                            if (progress === 1) {
+                                setTimeout(() => {
+                                    card.classList.add('animated');
+                                }, 0);
+                            }
+                        }
+                    }
+                });
             });
+
+            // gsap.from(leftCard, { 
+            //     x: -300,
+            //     opacity: 0.3,
+            //     scrollTrigger
+            // });
     
-            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(middleCard, { 
-                y: 300,
-                opacity: 0.3,
-                scrollTrigger
-            });
+            // gsap.from(middleCard, { 
+            //     y: 300,
+            //     opacity: 0.3,
+            //     scrollTrigger
+            // });
     
-            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(rightCard, { 
-                x: 300,
-                opacity: 0.3,
-                scrollTrigger
-            });
+            // gsap.from(rightCard, { 
+            //     x: 300,
+            //     opacity: 0.3,
+            //     scrollTrigger
+            // });
     
             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(seeMoreBtn, {
                 y: 100,
@@ -21468,6 +21512,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     start: '-150 90%',
                     end: '0 80%',
                     scrub: true,
+                    once: true
                 }
             })
         });
@@ -21482,6 +21527,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     start: 'top 90%',
                     end: 'bottom 70%',
                     scrub: true,
+                    once: true
                 }
             });
         });
@@ -21489,7 +21535,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const promoFeatureAnimationsSections = document.querySelectorAll('.promo-feature-animation-section');
     
         promoFeatureAnimationsSections.forEach((promoFeatureSection) => {
-            const promoImg = promoFeatureSection.querySelector('.promo-feature-animation-section__promo-img');
+            const promoImg = promoFeatureSection.querySelector('.promo-feature-animation-section__promo-image');
             const title = promoFeatureSection.querySelector('.promo-feature-animation-section__title');
             const subtitle = promoFeatureSection.querySelector('.promo-feature-animation-section__subtitle');
             const seeMoreBtn = promoFeatureSection.querySelector('.promo-feature-animation-section__see-more-btn');
@@ -21501,7 +21547,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     trigger: promoImg,
                     start: '-400 80%',
                     end: 'center 90%',
-                    scrub: true
+                    scrub: true,
+                    once: true
                 }
              });
     
@@ -21512,7 +21559,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     trigger: title,
                     start: '-250 65%',
                     end: '50% 70%',
-                    scrub: true
+                    scrub: true,
+                    once: true
                 }
              });
     
@@ -21523,7 +21571,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     trigger: subtitle,
                     start: '-250 65%',
                     end: '50% 70%',
-                    scrub: true
+                    scrub: true,
+                    once: true
                 }
              });
     
@@ -21534,7 +21583,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     trigger: seeMoreBtn,
                     start: '-250 65%',
                     end: '50% 70%',
-                    scrub: true
+                    scrub: true,
+                    once: true
                 }
              });
         });
@@ -21545,7 +21595,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new _js_classes_ExpandingMobileNavigation__WEBPACK_IMPORTED_MODULE_3__["default"]('.main-header-navigation__navigation');
     
     // большой слайдер в хэдере
-    new _js_classes_HeaderSectionBannerSlider__WEBPACK_IMPORTED_MODULE_4__["default"]('.header-features-large-slider', 'header-features-slider-section__background');
+    new _js_classes_HeaderSectionBannerSlider__WEBPACK_IMPORTED_MODULE_4__["default"]('header-features-slider-section');
     
     // секция с бегущей строкой
     new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.currencies-running-line-slider', {
