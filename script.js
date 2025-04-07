@@ -21400,31 +21400,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].isTouch !== 1) {
-        const threeCardsAnimationSections = document.querySelectorAll('.three-cards-animation-section');
+        const cardsAnimationSections = document.querySelectorAll('.cards-animation-section');
 
-        threeCardsAnimationSections.forEach((threeCardsSection) => {
-            // const titleLeftPart = threeCardsSection.querySelector('.three-cards-animation-section__left-title-part');
-            // const titleRightPart = threeCardsSection.querySelector('.three-cards-animation-section__right-title-part');
-            const content = threeCardsSection.querySelector('.three-cards-animation-section__content');
+        cardsAnimationSections.forEach((threeCardsSection) => {
+            // const titleLeftPart = threeCardsSection.querySelector('.cards-animation-section__left-title-part');
+            // const titleRightPart = threeCardsSection.querySelector('.cards-animation-section__right-title-part');
+            const content = threeCardsSection.querySelector('.cards-animation-section__content');
             
-            const title = content?.querySelector('.three-cards-animation-section__title');
-            const subtitle = content?.querySelector('.three-cards-animation-section__subtitle');
+            const title = content?.querySelector('.cards-animation-section__title');
+            const subtitle = content?.querySelector('.cards-animation-section__subtitle');
     
-            // const leftCard = content?.querySelector('.three-cards-animation-section__left-card');
-            // const middleCard = content?.querySelector('.three-cards-animation-section__middle-card');
-            // const rightCard = content?.querySelector('.three-cards-animation-section__right-card');
+            // const leftCard = content?.querySelector('.cards-animation-section__left-card');
+            // const middleCard = content?.querySelector('.cards-animation-section__middle-card');
+            // const rightCard = content?.querySelector('.cards-animation-section__right-card');
 
-            const cards = content?.querySelectorAll('.three-cards-animation-section__card');
+            const cards = content?.querySelectorAll('.cards-animation-section__card');
     
-            const seeMoreBtn = content?.querySelector('.three-cards-animation-section__see-more-btn');
+            const seeMoreBtn = content?.querySelector('.cards-animation-section__see-more-btn');
     
-            const scrollTrigger = {
-                trigger: content,
-                start: 'top bottom',
-                end: '50% 45%',
-                scrub: true,
-                once: true
-            };
+            // const scrollTrigger = {
+            //     trigger: content,
+            //     start: 'top bottom',
+            //     end: '50% 45%',
+            //     scrub: true,
+            //     once: true
+            // };
     
             // gsap.from(titleLeftPart, {
             //     x: -150,
@@ -21445,45 +21445,72 @@ document.addEventListener('DOMContentLoaded', () => {
             //         end: '50% 80%'
             //     }
             // });
-    
-            if (title || subtitle) {
-                const titleSubtitleTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({ 
-                    scrollTrigger: {
-                        trigger: content,
-                        start: 'top bottom',
-                        end: '30% 85%',
-                        scrub: true,
-                        once: true
-                    }
-                 });
 
-                 if (title) {
-                    titleSubtitleTimeline
-                        .from(title, { y: 100, opacity: 0 })
-                 }
+            const cardsAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({
+                scrollTrigger: {
+                    trigger: content,
+                    start: 'top 90%',
+                    end: 'center center',
+                    scrub: true,
+                    // once: true
+                }
+            });
 
-                 if (subtitle) {
-                    titleSubtitleTimeline
-                        .from(subtitle, { y: 100, opacity: 0 });
-                 }
+            if (title) {
+                cardsAnimationSectionTimeline
+                    .from(title, { y: 100, opacity: 0 })
             }
 
+            if (subtitle) {
+                cardsAnimationSectionTimeline
+                    .from(subtitle, { y: 100, opacity: 0 })
+            }
+    
+            // if (title || subtitle) {
+            //     const titleSubtitleTimeline = gsap.timeline({ 
+            //         scrollTrigger: {
+            //             trigger: content,
+            //             start: 'center bottom',
+            //             end: '30% 85%',
+            //             scrub: true,
+            //             once: true
+            //         }
+            //      });
+
+            //      if (title) {
+            //         titleSubtitleTimeline
+            //             .from(title, { y: 100, opacity: 0 })
+            //      }
+
+            //      if (subtitle) {
+            //         titleSubtitleTimeline
+            //             .from(subtitle, { y: 100, opacity: 0 });
+            //      }
+            // }
 
             cards.forEach((card) => {
-                gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(card, { 
-                    y: 300,
-                    opacity: 0.3,
-                    scrollTrigger: {
-                        ...scrollTrigger,
-                        onUpdate: ({ progress }) => {
-                            if (progress === 1) {
-                                setTimeout(() => {
-                                    card.classList.add('animated');
-                                }, 0);
-                            }
+                cardsAnimationSectionTimeline
+                    .from(card, 
+                        { 
+                            y: 300, 
+                            opacity: 0.2
                         }
-                    }
-                });
+                    );
+
+                // gsap.from(card, { 
+                //     y: 300,
+                //     opacity: 0.3,
+                //     scrollTrigger: {
+                //         ...scrollTrigger,
+                //         onUpdate: ({ progress }) => {
+                //             if (progress === 1) {
+                //                 setTimeout(() => {
+                //                     card.classList.add('animated');
+                //                 }, 0);
+                //             }
+                //         }
+                //     }
+                // });
             });
 
             // gsap.from(leftCard, { 
@@ -21503,18 +21530,23 @@ document.addEventListener('DOMContentLoaded', () => {
             //     opacity: 0.3,
             //     scrollTrigger
             // });
+
+            if (seeMoreBtn) {
+                cardsAnimationSectionTimeline
+                    .from(seeMoreBtn, { y: 100, opacity: 0.3 });
+            }
     
-            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(seeMoreBtn, {
-                y: 100,
-                opacity: 0.3,
-                scrollTrigger: {
-                    trigger: seeMoreBtn,
-                    start: '-150 90%',
-                    end: '0 80%',
-                    scrub: true,
-                    once: true
-                }
-            })
+            // gsap.from(seeMoreBtn, {
+            //     y: 100,
+            //     opacity: 0.3,
+            //     scrollTrigger: {
+            //         trigger: seeMoreBtn,
+            //         start: '-150 90%',
+            //         end: '0 80%',
+            //         scrub: true,
+            //         once: true
+            //     }
+            // })
         });
     
         const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
@@ -21634,9 +21666,7 @@ document.addEventListener('DOMContentLoaded', () => {
         new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.analytics-news-section-slider', defaultSliderThreeElementsSettings);
     
         // начать торговать легко
-        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.get-started-tutorial-slider', {
-            ...defaultSliderThreeElementsSettings
-        });
+        new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.get-started-tutorial-slider', defaultSliderThreeElementsSettings);
     
         // курсы на рынке форекс
         new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.currencies-brief-news-section-slider', defaultSliderThreeElementsSettings);
