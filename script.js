@@ -21388,6 +21388,8 @@ document.addEventListener('DOMContentLoaded', () => {
             content: smoothScrollContent,
             smoothWheel: true,
             autoRaf: true,
+            duration: 1.5,
+            wheelMultiplier: 0.45
         });
     
         lenis.on('scroll', gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].update);
@@ -21449,21 +21451,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardsAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({
                 scrollTrigger: {
                     trigger: content,
-                    start: 'top 90%',
-                    end: 'center center',
+                    start: 'top+=50 bottom',
+                    end: 'bottom+=80 bottom',
                     scrub: true,
-                    // once: true
+                    once: true,
+                    onUpdate: ({ progress }) => {
+                        if (progress === 1) {
+                            cards.forEach((card) => {
+                                card.classList.add('animated');
+                            });
+                        }
+                    }
                 }
             });
 
             if (title) {
                 cardsAnimationSectionTimeline
-                    .from(title, { y: 100, opacity: 0 })
+                    .from(title, { y: 100, opacity: 0, duration: 1 })
             }
 
             if (subtitle) {
                 cardsAnimationSectionTimeline
-                    .from(subtitle, { y: 100, opacity: 0 })
+                    .from(subtitle, { y: 100, opacity: 0, duration: 1 })
             }
     
             // if (title || subtitle) {
@@ -21493,7 +21502,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     .from(card, 
                         { 
                             y: 300, 
-                            opacity: 0.2
+                            opacity: 0,
+                            duration: 2.5
                         }
                     );
 
@@ -21533,7 +21543,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (seeMoreBtn) {
                 cardsAnimationSectionTimeline
-                    .from(seeMoreBtn, { y: 100, opacity: 0.3 });
+                    .from(seeMoreBtn, { y: 100, opacity: 0.3, duration: 1.5 });
             }
     
             // gsap.from(seeMoreBtn, {
@@ -21552,11 +21562,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
     
         onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
+            const content = onlyOpacitySection.querySelector('.only-opacity-animation-section__content');
+
             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(onlyOpacitySection, {
                 opacity: 0.1,
                 scrollTrigger: {
-                    trigger: onlyOpacitySection,
-                    start: 'top 90%',
+                    trigger: content,
+                    start: 'top+=50 bottom',
                     end: 'bottom 70%',
                     scrub: true,
                     once: true
@@ -21572,53 +21584,83 @@ document.addEventListener('DOMContentLoaded', () => {
             const subtitle = promoFeatureSection.querySelector('.promo-feature-animation-section__subtitle');
             const seeMoreBtn = promoFeatureSection.querySelector('.promo-feature-animation-section__see-more-btn');
     
-            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(promoImg, { 
-                opacity: 0.3,
-                y: 200,
+            const promoFeatureAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({
                 scrollTrigger: {
-                    trigger: promoImg,
-                    start: '-400 80%',
-                    end: 'center 90%',
+                    trigger: promoFeatureSection,
+                    start: 'top+=50 bottom',
+                    end: 'bottom+=100 bottom',
                     scrub: true,
-                    once: true
+                    once: true,
                 }
-             });
+            });
+
+            if (promoImg) {
+                promoFeatureAnimationSectionTimeline
+                    .from(promoImg, { opacity: 0, y: 200, duration: 2.5 });
+            }
+
+            if (title) {
+                promoFeatureAnimationSectionTimeline
+                    .from(title, { opacity: 0, x: 100, duration: 1 });
+            }
+
+            if (subtitle) {
+                promoFeatureAnimationSectionTimeline
+                    .from(subtitle, { opacity: 0, x: 100, duration: 1 });
+            }
+
+            if (seeMoreBtn) {
+                promoFeatureAnimationSectionTimeline
+                    .from(seeMoreBtn, { opacity: 0, x: 100, duration: 1 });
+            }
+
+            // gsap.from(promoImg, { 
+            //     opacity: 0.3,
+            //     y: 200,
+            //     scrollTrigger: {
+            //         trigger: promoImg,
+            //         start: '-400 80%',
+            //         end: 'center 90%',
+            //         scrub: true,
+            //         once: true
+            //     }
+            //  });
     
-             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(title, {
-                opacity: 0.3,
-                x: 100,
-                scrollTrigger: {
-                    trigger: title,
-                    start: '-250 65%',
-                    end: '50% 70%',
-                    scrub: true,
-                    once: true
-                }
-             });
+            //  gsap.from(title, {
+            //     opacity: 0.3,
+            //     x: 100,
+            //     scrollTrigger: {
+            //         trigger: title,
+            //         start: '-250 65%',
+            //         end: '50% 70%',
+            //         scrub: true,
+            //         once: true
+            //     }
+            //  });
     
-             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(subtitle, {
-                opacity: 0.3,
-                x: 100,
-                scrollTrigger: {
-                    trigger: subtitle,
-                    start: '-250 65%',
-                    end: '50% 70%',
-                    scrub: true,
-                    once: true
-                }
-             });
+            //  gsap.from(subtitle, {
+            //     opacity: 0.3,
+            //     x: 100,
+            //     scrollTrigger: {
+            //         trigger: subtitle,
+            //         start: '-250 65%',
+            //         end: '50% 70%',
+            //         scrub: true,
+            //         once: true
+            //     }
+            //  });
     
-             gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(seeMoreBtn, {
-                opacity: 0.3,
-                x: 100,
-                scrollTrigger: {
-                    trigger: seeMoreBtn,
-                    start: '-250 65%',
-                    end: '50% 70%',
-                    scrub: true,
-                    once: true
-                }
-             });
+            //  gsap.from(seeMoreBtn, {
+            //     opacity: 0.3,
+            //     x: 100,
+            //     scrollTrigger: {
+            //         trigger: seeMoreBtn,
+            //         start: '-250 65%',
+            //         end: '50% 70%',
+            //         scrub: true,
+            //         once: true
+            //     }
+            //  });
         });
     }
     

@@ -1376,6 +1376,9 @@ button.swiper-pagination-bullet {
 #updated-bcs-design .element-info-card:focus .element-info-card__read-more, #updated-bcs-design .element-info-card:hover .element-info-card__read-more, #updated-bcs-design .element-info-card:active .element-info-card__read-more {
   color: var(--primary-color);
 }
+#updated-bcs-design .element-info-card.animated {
+  transition: transform var(--default-animation-time) !important;
+}
 @media (max-width: 576px) {
   #updated-bcs-design .element-info-card--brief {
     padding: 24px 24px 42px;
@@ -1399,6 +1402,9 @@ button.swiper-pagination-bullet {
   margin-top: 8px;
   color: var(--sub-primary-text-color);
   line-height: 1.25;
+}
+#updated-bcs-design a.element-info-card.animated:focus, #updated-bcs-design a.element-info-card.animated:hover, #updated-bcs-design a.element-info-card.animated:active {
+  transform: scale(1.03) !important;
 }
 #updated-bcs-design .main-header {
   position: absolute;
