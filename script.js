@@ -21404,20 +21404,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].isTouch !== 1) {
         const cardsAnimationSections = document.querySelectorAll('.cards-animation-section');
 
-        cardsAnimationSections.forEach((threeCardsSection) => {
+        cardsAnimationSections.forEach((cardsAnimationSection) => {
             // const titleLeftPart = threeCardsSection.querySelector('.cards-animation-section__left-title-part');
             // const titleRightPart = threeCardsSection.querySelector('.cards-animation-section__right-title-part');
-            const content = threeCardsSection.querySelector('.cards-animation-section__content');
+            const content = cardsAnimationSection.querySelector('.cards-animation-section__content');
             
             const title = content?.querySelector('.cards-animation-section__title');
             const subtitle = content?.querySelector('.cards-animation-section__subtitle');
-    
-            // const leftCard = content?.querySelector('.cards-animation-section__left-card');
-            // const middleCard = content?.querySelector('.cards-animation-section__middle-card');
-            // const rightCard = content?.querySelector('.cards-animation-section__right-card');
 
             const cards = content?.querySelectorAll('.cards-animation-section__card');
-    
+
             const seeMoreBtn = content?.querySelector('.cards-animation-section__see-more-btn');
     
             // const scrollTrigger = {
@@ -21497,49 +21493,43 @@ document.addEventListener('DOMContentLoaded', () => {
             //      }
             // }
 
-            cards.forEach((card) => {
-                cardsAnimationSectionTimeline
-                    .from(card, 
-                        { 
-                            y: 300, 
-                            opacity: 0,
-                            duration: 2.5
-                        }
-                    );
+            if (cardsAnimationSection.classList.contains('cards-animation-section--gather')) {
+                const leftCard = content?.querySelector('.cards-animation-section__card--left');
+                const middleCards = content?.querySelectorAll('.cards-animation-section__card--middle');
+                const rightCard = content?.querySelector('.cards-animation-section__card--right');
 
-                // gsap.from(card, { 
-                //     y: 300,
-                //     opacity: 0.3,
-                //     scrollTrigger: {
-                //         ...scrollTrigger,
-                //         onUpdate: ({ progress }) => {
-                //             if (progress === 1) {
-                //                 setTimeout(() => {
-                //                     card.classList.add('animated');
-                //                 }, 0);
-                //             }
-                //         }
-                //     }
-                // });
-            });
+                const gatherCardAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({ duration: 7.5 });
 
-            // gsap.from(leftCard, { 
-            //     x: -300,
-            //     opacity: 0.3,
-            //     scrollTrigger
-            // });
-    
-            // gsap.from(middleCard, { 
-            //     y: 300,
-            //     opacity: 0.3,
-            //     scrollTrigger
-            // });
-    
-            // gsap.from(rightCard, { 
-            //     x: 300,
-            //     opacity: 0.3,
-            //     scrollTrigger
-            // });
+                if (leftCard) {
+                    gatherCardAnimationTimeline
+                        .from(leftCard, { x: -300, opacity: 0, duration: 2 }, 0);
+                }
+
+                if (middleCards?.length > 0) {
+                    middleCards.forEach((middleCard) => {
+                        gatherCardAnimationTimeline
+                            .from(middleCard, { y: 300, opacity: 0, duration: 2 }, 0);
+                    });
+                }
+
+                if (rightCard) {
+                    gatherCardAnimationTimeline
+                        .from(rightCard, { x: 300, opacity: 0, duration: 2 }, 0);
+                }
+
+                cardsAnimationSectionTimeline.add(gatherCardAnimationTimeline);
+            } else {
+                cards.forEach((card) => {
+                    cardsAnimationSectionTimeline
+                        .from(card, 
+                            { 
+                                y: 300, 
+                                opacity: 0,
+                                duration: 2.5
+                            }
+                        );
+                });
+            }
 
             if (seeMoreBtn) {
                 cardsAnimationSectionTimeline
@@ -21576,92 +21566,92 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     
-        const promoFeatureAnimationsSections = document.querySelectorAll('.promo-feature-animation-section');
+        // const promoFeatureAnimationsSections = document.querySelectorAll('.promo-feature-animation-section');
     
-        promoFeatureAnimationsSections.forEach((promoFeatureSection) => {
-            const promoImg = promoFeatureSection.querySelector('.promo-feature-animation-section__promo-image');
-            const title = promoFeatureSection.querySelector('.promo-feature-animation-section__title');
-            const subtitle = promoFeatureSection.querySelector('.promo-feature-animation-section__subtitle');
-            const seeMoreBtn = promoFeatureSection.querySelector('.promo-feature-animation-section__see-more-btn');
+        // promoFeatureAnimationsSections.forEach((promoFeatureSection) => {
+        //     const promoImg = promoFeatureSection.querySelector('.promo-feature-animation-section__promo-image');
+        //     const title = promoFeatureSection.querySelector('.promo-feature-animation-section__title');
+        //     const subtitle = promoFeatureSection.querySelector('.promo-feature-animation-section__subtitle');
+        //     const seeMoreBtn = promoFeatureSection.querySelector('.promo-feature-animation-section__see-more-btn');
     
-            const promoFeatureAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({
-                scrollTrigger: {
-                    trigger: promoFeatureSection,
-                    start: 'top+=50 bottom',
-                    end: 'bottom+=100 bottom',
-                    scrub: true,
-                    once: true,
-                }
-            });
+        //     const promoFeatureAnimationSectionTimeline = gsap.timeline({
+        //         scrollTrigger: {
+        //             trigger: promoFeatureSection,
+        //             start: 'top+=50 bottom',
+        //             end: 'bottom+=100 bottom',
+        //             scrub: true,
+        //             once: true,
+        //         }
+        //     });
 
-            if (promoImg) {
-                promoFeatureAnimationSectionTimeline
-                    .from(promoImg, { opacity: 0, y: 200, duration: 2.5 });
-            }
+        //     if (promoImg) {
+        //         promoFeatureAnimationSectionTimeline
+        //             .from(promoImg, { opacity: 0, y: 200, duration: 2.5 });
+        //     }
 
-            if (title) {
-                promoFeatureAnimationSectionTimeline
-                    .from(title, { opacity: 0, x: 100, duration: 1 });
-            }
+        //     if (title) {
+        //         promoFeatureAnimationSectionTimeline
+        //             .from(title, { opacity: 0, x: 100, duration: 1 });
+        //     }
 
-            if (subtitle) {
-                promoFeatureAnimationSectionTimeline
-                    .from(subtitle, { opacity: 0, x: 100, duration: 1 });
-            }
+        //     if (subtitle) {
+        //         promoFeatureAnimationSectionTimeline
+        //             .from(subtitle, { opacity: 0, x: 100, duration: 1 });
+        //     }
 
-            if (seeMoreBtn) {
-                promoFeatureAnimationSectionTimeline
-                    .from(seeMoreBtn, { opacity: 0, x: 100, duration: 1 });
-            }
+        //     if (seeMoreBtn) {
+        //         promoFeatureAnimationSectionTimeline
+        //             .from(seeMoreBtn, { opacity: 0, x: 100, duration: 1 });
+        //     }
 
-            // gsap.from(promoImg, { 
-            //     opacity: 0.3,
-            //     y: 200,
-            //     scrollTrigger: {
-            //         trigger: promoImg,
-            //         start: '-400 80%',
-            //         end: 'center 90%',
-            //         scrub: true,
-            //         once: true
-            //     }
-            //  });
+        //     // gsap.from(promoImg, { 
+        //     //     opacity: 0.3,
+        //     //     y: 200,
+        //     //     scrollTrigger: {
+        //     //         trigger: promoImg,
+        //     //         start: '-400 80%',
+        //     //         end: 'center 90%',
+        //     //         scrub: true,
+        //     //         once: true
+        //     //     }
+        //     //  });
     
-            //  gsap.from(title, {
-            //     opacity: 0.3,
-            //     x: 100,
-            //     scrollTrigger: {
-            //         trigger: title,
-            //         start: '-250 65%',
-            //         end: '50% 70%',
-            //         scrub: true,
-            //         once: true
-            //     }
-            //  });
+        //     //  gsap.from(title, {
+        //     //     opacity: 0.3,
+        //     //     x: 100,
+        //     //     scrollTrigger: {
+        //     //         trigger: title,
+        //     //         start: '-250 65%',
+        //     //         end: '50% 70%',
+        //     //         scrub: true,
+        //     //         once: true
+        //     //     }
+        //     //  });
     
-            //  gsap.from(subtitle, {
-            //     opacity: 0.3,
-            //     x: 100,
-            //     scrollTrigger: {
-            //         trigger: subtitle,
-            //         start: '-250 65%',
-            //         end: '50% 70%',
-            //         scrub: true,
-            //         once: true
-            //     }
-            //  });
+        //     //  gsap.from(subtitle, {
+        //     //     opacity: 0.3,
+        //     //     x: 100,
+        //     //     scrollTrigger: {
+        //     //         trigger: subtitle,
+        //     //         start: '-250 65%',
+        //     //         end: '50% 70%',
+        //     //         scrub: true,
+        //     //         once: true
+        //     //     }
+        //     //  });
     
-            //  gsap.from(seeMoreBtn, {
-            //     opacity: 0.3,
-            //     x: 100,
-            //     scrollTrigger: {
-            //         trigger: seeMoreBtn,
-            //         start: '-250 65%',
-            //         end: '50% 70%',
-            //         scrub: true,
-            //         once: true
-            //     }
-            //  });
-        });
+        //     //  gsap.from(seeMoreBtn, {
+        //     //     opacity: 0.3,
+        //     //     x: 100,
+        //     //     scrollTrigger: {
+        //     //         trigger: seeMoreBtn,
+        //     //         start: '-250 65%',
+        //     //         end: '50% 70%',
+        //     //         scrub: true,
+        //     //         once: true
+        //     //     }
+        //     //  });
+        // });
     }
     
     // мобильный хэдер
