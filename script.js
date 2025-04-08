@@ -21677,7 +21677,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (window.screen.width <= LG_BREAKPOINT) {
         const defaultSliderThreeElementsSettings = {
-            slidesPerView: 1.3,
+            slidesPerView: 1.1,
             spaceBetween: 20,
             breakpoints: {
                 [SM_BREAKPOINT + 1]: {

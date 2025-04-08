@@ -1017,6 +1017,9 @@ button.swiper-pagination-bullet {
 #updated-bcs-design.no-scroll, #updated-bcs-design .no-scroll {
   overflow: hidden;
 }
+#updated-bcs-design .cards-animation-section__title, #updated-bcs-design .cards-animation-section__subtitle, #updated-bcs-design .cards-animation-section__card, #updated-bcs-design .cards-animation-section__title__see-more-btn, #updated-bcs-design .only-opacity-animation-section, #updated-bcs-design .swiper-slide {
+  will-change: transform;
+}
 #updated-bcs-design .underlined {
   text-decoration: underline;
 }
@@ -2052,8 +2055,8 @@ button.swiper-pagination-bullet {
   color: var(--primary-color-dark);
 }
 #updated-bcs-design .vertical-card__img {
-  width: 180px;
-  height: 172px;
+  width: 148px;
+  height: 148px;
 }
 #updated-bcs-design .vertical-card__img img {
   width: 100%;
@@ -2262,6 +2265,9 @@ button.swiper-pagination-bullet {
 #updated-bcs-design .main-footer {
   padding: 50px 0;
 }
+#updated-bcs-design .main-footer a:hover, #updated-bcs-design .main-footer a:focus, #updated-bcs-design .main-footer a:active {
+  color: var(--primary-color-dark);
+}
 #updated-bcs-design .main-footer__content {
   display: flex;
   flex-direction: column;
@@ -2270,6 +2276,7 @@ button.swiper-pagination-bullet {
 #updated-bcs-design .main-footer__navigation-grid-block {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-items: left;
   gap: 32px;
 }
 #updated-bcs-design .main-footer__navigation-grid-block--single-navigation-block {
