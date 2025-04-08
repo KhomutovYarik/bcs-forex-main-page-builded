@@ -21402,6 +21402,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].isTouch !== 1) {
+        const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
+    
+        onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
+            const content = onlyOpacitySection.querySelector('.only-opacity-animation-section__content');
+
+            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(onlyOpacitySection, {
+                opacity: 0.1,
+                scrollTrigger: {
+                    trigger: content,
+                    start: 'top+=50 bottom',
+                    end: 'bottom 70%',
+                    scrub: true,
+                    once: true
+                }
+            });
+        });
+
         const cardsAnimationSections = document.querySelectorAll('.cards-animation-section');
 
         cardsAnimationSections.forEach((cardsAnimationSection) => {
@@ -21547,23 +21564,6 @@ document.addEventListener('DOMContentLoaded', () => {
             //         once: true
             //     }
             // })
-        });
-    
-        const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
-    
-        onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
-            const content = onlyOpacitySection.querySelector('.only-opacity-animation-section__content');
-
-            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(onlyOpacitySection, {
-                opacity: 0.1,
-                scrollTrigger: {
-                    trigger: content,
-                    start: 'top+=50 bottom',
-                    end: 'bottom 70%',
-                    scrub: true,
-                    once: true
-                }
-            });
         });
     
         // const promoFeatureAnimationsSections = document.querySelectorAll('.promo-feature-animation-section');

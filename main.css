@@ -1562,6 +1562,9 @@ button.swiper-pagination-bullet {
   color: #C8C7CC;
   transform: rotate(-90deg);
 }
+#updated-bcs-design .main-header .dropdown-navigation-element .navigation-titled-element:hover, #updated-bcs-design .main-header .dropdown-navigation-element .navigation-titled-element:focus, #updated-bcs-design .main-header .dropdown-navigation-element .navigation-titled-element:active {
+  color: var(--primary-color-dark);
+}
 @media (max-width: 992px) {
   #updated-bcs-design .main-header .dropdown-navigation-element .navigation-titled-element {
     padding: 0 16px;
