@@ -21650,8 +21650,8 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lenis__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lenis */ "./node_modules/lenis/dist/lenis.mjs");
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! gsap/ScrollTrigger */ "./node_modules/gsap/ScrollTrigger.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! gsap/ScrollTrigger */ "./node_modules/gsap/ScrollTrigger.js");
 /* harmony import */ var gsap_ScrollToPlugin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! gsap/ScrollToPlugin */ "./node_modules/gsap/ScrollToPlugin.js");
 /* harmony import */ var swiper_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper/bundle */ "./node_modules/swiper/swiper-bundle.mjs");
 /* harmony import */ var swiper_css_bundle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/css/bundle */ "./node_modules/swiper/swiper-bundle.css");
@@ -21671,10 +21671,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class SnapScroll {
+class SnapLenisScroll {
     constructor(lenis, snapSectionSelector = '.snap-scroll-section') {
-        window.lenis = lenis;
-        window.gsap = gsap__WEBPACK_IMPORTED_MODULE_5__["default"];
         this.lenis = lenis;
         this.snapSectionsList = document.querySelectorAll(snapSectionSelector);
 
@@ -21685,8 +21683,10 @@ class SnapScroll {
     }
 
     initLenisSnapScroll() {
-        this.lenis.on('scroll', (e) => {
-            const { direction } = e
+        this.lenis.on('scroll', ({ direction }) => {
+            if (this.isScrollBlocked) {
+                return;
+            }
 
             if (direction === 1) {
                 this.checkIfSnap('down');
@@ -21696,50 +21696,75 @@ class SnapScroll {
                 this.checkIfSnap('up');
             }
 
-            gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].update;
+            gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__["default"].update;
         });
     }
 
-    scrollToSection(targetSection, duration = 2) {
-        if (this.isScrollBlocked) {
-            return;
-        }
-
+    scrollTo(YCoord = 0, duration = 3) {
         this.lenis.stop();
 
-        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].to(window, { scrollTo: targetSection.offsetTop, duration });
         this.isScrollBlocked = true;
+        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].to(window, { scrollTo: YCoord, duration });
 
         setTimeout(() => {
             this.lenis.start();
             this.isScrollBlocked = false;
-        }, duration * 1000);
+        }, duration * 1000 + 500);
     }
 
-    findAndSetCurrentSnapSectionIndex() { //здесь описать такую логику, что текущей секцией является секция 
-        let { bottom: currentSectionFromBottomToTopDistance } = this.snapSectionsList[0].getBoundingClientRect();
-        this.currentSnapSectionIndex = 0;
+    findAndSetCurrentSnapSectionIndex() {
+        let { top: nearestSnapSectionTopOffset } = this.snapSectionsList[0].getBoundingClientRect();
+        let nearestSnapSectionIndex = 0;
 
         this.snapSectionsList.forEach((snapSection, index) => {
-            const { bottom: sectionFromBottomToTopDistance } = snapSection.getBoundingClientRect();
+            const { top: sectionTopOffset } = snapSection.getBoundingClientRect();
+
+            if (Math.abs(sectionTopOffset) < Math.abs(nearestSnapSectionTopOffset)) {
+                nearestSnapSectionTopOffset = sectionTopOffset;
+                nearestSnapSectionIndex = index;
+            }
         });
+
+        this.currentSnapSectionIndex = nearestSnapSectionIndex;
+    }
+
+    getSectionCenterYCoord(sectionTopYPosition, sectionHeight) {
+        return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
+    }
+
+    getSectionPositionToScroll(section, direction = 'down') {
+        const { top: topSectionOffset, height: sectionHeight } = section.getBoundingClientRect();
+
+        const sectionTopYPosition = topSectionOffset + window.scrollY;
+
+        if (window.innerHeight > sectionHeight) {
+            return this.getSectionCenterYCoord(sectionTopYPosition, sectionHeight);
+        }
+
+        if (direction === 'up') {
+            const sectionBottomYPosition = sectionTopYPosition + sectionHeight;
+
+            return sectionBottomYPosition - window.innerHeight;
+        }
+
+        return sectionTopYPosition;
     }
 
     checkIfSnap(direction = 'down') {
-        const { top: topCurrentSnapSectionOffset, bottom: bottomCurrentSnapSectionOffset } = this.snapSectionsList[this.currentSnapSectionIndex].getBoundingClientRect();
+        const { top: topCurrentSnapSectionOffset, bottom: bottomCurrentSnapSectionOffset, height: sectionHeight } = this.snapSectionsList[this.currentSnapSectionIndex].getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
         if (direction === 'down' && windowHeight > bottomCurrentSnapSectionOffset && this.currentSnapSectionIndex + 1 < this.snapSectionsList.length) {
             this.currentSnapSectionIndex++;
-            this.scrollToSection(this.snapSectionsList[this.currentSnapSectionIndex]);
+            const sectionPositionToScroll = this.getSectionPositionToScroll(this.snapSectionsList[this.currentSnapSectionIndex], direction);
+            this.scrollTo(sectionPositionToScroll);
         }
 
         if (direction === 'up' && topCurrentSnapSectionOffset > 0 && this.currentSnapSectionIndex !== 0) {
             this.currentSnapSectionIndex--;
-            this.scrollToSection(this.snapSectionsList[this.currentSnapSectionIndex]);
+            const sectionPositionToScroll = this.getSectionPositionToScroll(this.snapSectionsList[this.currentSnapSectionIndex], direction);
+            this.scrollTo(sectionPositionToScroll);
         }
-
-        // console.log(this.currentSnapSectionIndex);
     }
 }
 
@@ -21752,126 +21777,125 @@ document.addEventListener('DOMContentLoaded', () => {
     const smoothScrollContent = document.querySelector('.smooth-scroll-content');
 
     if (smoothScrollContent) {
-        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"], gsap_ScrollToPlugin__WEBPACK_IMPORTED_MODULE_7__.ScrollToPlugin);
+        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].registerPlugin(gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__["default"], gsap_ScrollToPlugin__WEBPACK_IMPORTED_MODULE_7__.ScrollToPlugin);
         
         const lenis = new lenis__WEBPACK_IMPORTED_MODULE_8__["default"]({
             content: smoothScrollContent,
-            easing: function(t){return (t === 1 ? 1 : 1 - Math.pow(2, -10 * t))},
             smoothWheel: true,
             autoRaf: true,
             duration: 1.5,
             wheelMultiplier: 0.45
         });
-
-        new SnapScroll(lenis);
         
-        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].ticker.add((time) => {
+        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].ticker.add((time) => {
           lenis.raf(time * 1000);
         });
         
-        gsap__WEBPACK_IMPORTED_MODULE_5__["default"].ticker.lagSmoothing(0);
-    }
+        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].ticker.lagSmoothing(0);
 
-    if (gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_6__["default"].isTouch !== 1) {
-        const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
+        if (gsap_ScrollTrigger__WEBPACK_IMPORTED_MODULE_5__["default"].isTouch !== 1) {
+            new SnapLenisScroll(lenis);
     
-        onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
-            const content = onlyOpacitySection.querySelector('.only-opacity-animation-section__content');
-
-            gsap__WEBPACK_IMPORTED_MODULE_5__["default"].from(onlyOpacitySection, {
-                opacity: 0.1,
-                scrollTrigger: {
-                    trigger: content,
-                    start: 'top+=50 bottom',
-                    end: 'bottom 90%',
-                    scrub: true,
-                    // once: true
-                }
+            const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
+        
+            onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
+                const content = onlyOpacitySection.querySelector('.only-opacity-animation-section__content');
+    
+                gsap__WEBPACK_IMPORTED_MODULE_6__["default"].from(onlyOpacitySection, {
+                    opacity: 0.1,
+                    scrollTrigger: {
+                        trigger: content,
+                        start: 'top+=100 bottom',
+                        end: 'bottom bottom',
+                        scrub: true,
+                        // once: true
+                    }
+                });
             });
-        });
-
-        const cardsAnimationSections = document.querySelectorAll('.cards-animation-section');
-
-        cardsAnimationSections.forEach((cardsAnimationSection) => {
-            const content = cardsAnimationSection.querySelector('.cards-animation-section__content');
-            
-            const title = content?.querySelector('.cards-animation-section__title');
-            const subtitle = content?.querySelector('.cards-animation-section__subtitle');
-
-            const cards = content?.querySelectorAll('.cards-animation-section__card');
-
-            const seeMoreBtn = content?.querySelector('.cards-animation-section__see-more-btn');
-
-            const cardsAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({
-                scrollTrigger: {
-                    trigger: content,
-                    start: 'top+=50 bottom',
-                    end: 'bottom+=80 bottom',
-                    scrub: true,
-                    // once: true,
-                    onUpdate: ({ progress }) => {
-                        if (progress === 1) {
-                            cards.forEach((card) => {
-                                card.classList.add('animated');
-                            });
+    
+            const cardsAnimationSections = document.querySelectorAll('.cards-animation-section');
+    
+            cardsAnimationSections.forEach((cardsAnimationSection) => {
+                const content = cardsAnimationSection.querySelector('.cards-animation-section__content');
+                
+                const title = content?.querySelector('.cards-animation-section__title');
+                const subtitle = content?.querySelector('.cards-animation-section__subtitle');
+    
+                const cards = content?.querySelectorAll('.cards-animation-section__card');
+    
+                const seeMoreBtn = content?.querySelector('.cards-animation-section__see-more-btn');
+    
+                const cardsAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({
+                    scrollTrigger: {
+                        trigger: content,
+                        start: 'top+=100 bottom',
+                        end: 'bottom bottom',
+                        scrub: true,
+                        // once: true,
+                        onUpdate: ({ progress }) => {
+                            if (progress === 1) {
+                                cards.forEach((card) => {
+                                    card.classList.add('animated');
+                                });
+                            }
                         }
                     }
+                });
+    
+                if (title) {
+                    cardsAnimationSectionTimeline
+                        .from(title, { y: 100, opacity: 0, duration: 1 })
                 }
-            });
-
-            if (title) {
-                cardsAnimationSectionTimeline
-                    .from(title, { y: 100, opacity: 0, duration: 1 })
-            }
-
-            if (subtitle) {
-                cardsAnimationSectionTimeline
-                    .from(subtitle, { y: 100, opacity: 0, duration: 1 })
-            }
-
-            if (cardsAnimationSection.classList.contains('cards-animation-section--gather')) {
-                const leftCard = content?.querySelector('.cards-animation-section__card--left');
-                const middleCards = content?.querySelectorAll('.cards-animation-section__card--middle');
-                const rightCard = content?.querySelector('.cards-animation-section__card--right');
-
-                const gatherCardAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_5__["default"].timeline({ duration: 7.5 });
-
-                if (leftCard) {
-                    gatherCardAnimationTimeline
-                        .from(leftCard, { x: -300, opacity: 0, duration: 2 }, 0);
+    
+                if (subtitle) {
+                    cardsAnimationSectionTimeline
+                        .from(subtitle, { y: 100, opacity: 0, duration: 1 })
                 }
-
-                if (middleCards?.length > 0) {
-                    middleCards.forEach((middleCard) => {
+    
+                if (cardsAnimationSection.classList.contains('cards-animation-section--gather')) {
+                    const leftCard = content?.querySelector('.cards-animation-section__card--left');
+                    const middleCards = content?.querySelectorAll('.cards-animation-section__card--middle');
+                    const rightCard = content?.querySelector('.cards-animation-section__card--right');
+    
+                    const gatherCardAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({ duration: 6 });
+    
+                    if (leftCard) {
                         gatherCardAnimationTimeline
-                            .from(middleCard, { y: 300, opacity: 0, duration: 2 }, 0);
+                            .from(leftCard, { x: -300, opacity: 0, duration: 2 }, 0);
+                    }
+    
+                    if (middleCards?.length > 0) {
+                        middleCards.forEach((middleCard) => {
+                            gatherCardAnimationTimeline
+                                .from(middleCard, { y: 300, opacity: 0, duration: 2 }, 0);
+                        });
+                    }
+    
+                    if (rightCard) {
+                        gatherCardAnimationTimeline
+                            .from(rightCard, { x: 300, opacity: 0, duration: 2 }, 0);
+                    }
+    
+                    cardsAnimationSectionTimeline.add(gatherCardAnimationTimeline);
+                } else {
+                    cards.forEach((card) => {
+                        cardsAnimationSectionTimeline
+                            .from(card, 
+                                { 
+                                    y: 300, 
+                                    opacity: 0,
+                                    duration: 2
+                                }
+                            );
                     });
                 }
-
-                if (rightCard) {
-                    gatherCardAnimationTimeline
-                        .from(rightCard, { x: 300, opacity: 0, duration: 2 }, 0);
-                }
-
-                cardsAnimationSectionTimeline.add(gatherCardAnimationTimeline);
-            } else {
-                cards.forEach((card) => {
+    
+                if (seeMoreBtn) {
                     cardsAnimationSectionTimeline
-                        .from(card, 
-                            { 
-                                y: 300, 
-                                opacity: 0,
-                                duration: 2.5
-                            }
-                        );
-                });
-            }
-
-            if (seeMoreBtn) {
-                cardsAnimationSectionTimeline
-                    .from(seeMoreBtn, { y: 100, opacity: 0.3, duration: 1.5 });
-            }
-        });
+                        .from(seeMoreBtn, { y: 100, opacity: 0.3, duration: 2 });
+                }
+            });
+        }
     }
     
     // мобильный хэдер
