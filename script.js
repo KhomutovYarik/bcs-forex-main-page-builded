@@ -21675,13 +21675,35 @@ class SnapLenisScroll {
     constructor(lenis, snapSectionSelector = '.snap-scroll-section') {
         this.lenis = lenis;
         this.snapSectionsList = document.querySelectorAll(snapSectionSelector);
-
+        
         if (this.lenis && this.snapSectionsList.length > 0) {
             this.findAndSetCurrentSnapSectionIndex();
             this.initLenisSnapScroll();
         }
     }
 
+    findAndSetCurrentSnapSectionIndex() {
+        let { top: nearestSnapSectionTopOffset } = this.snapSectionsList[0].getBoundingClientRect();
+        let nearestSnapSectionIndex = 0;
+
+        this.snapSectionsList.forEach((snapSection, index) => {
+            const { top: sectionTopOffset } = snapSection.getBoundingClientRect();
+
+            if (Math.abs(sectionTopOffset) < Math.abs(nearestSnapSectionTopOffset)) {
+                nearestSnapSectionTopOffset = sectionTopOffset;
+                nearestSnapSectionIndex = index;
+            }
+        });
+
+        this.currentSnapSectionIndex = nearestSnapSectionIndex;
+
+        const { height: currentSectionHeight } = this.snapSectionsList[this.currentSnapSectionIndex].getBoundingClientRect();
+
+        if (window.innerWidth >= currentSectionHeight && nearestSnapSectionTopOffset !== 0) {
+            this.snapToCurrentSection(nearestSnapSectionTopOffset > 0 ? 'down' : 'up');
+        }
+    }
+    
     initLenisSnapScroll() {
         this.lenis.on('scroll', ({ direction }) => {
             if (this.isScrollBlocked) {
@@ -21700,36 +21722,24 @@ class SnapLenisScroll {
         });
     }
 
-    scrollTo(YCoord = 0, duration = 3) {
-        this.lenis.stop();
+    checkIfSnap(direction = 'down') {
+        const { top: topCurrentSnapSectionOffset, bottom: bottomCurrentSnapSectionOffset } = this.snapSectionsList[this.currentSnapSectionIndex].getBoundingClientRect();
+        const windowHeight = window.innerHeight;
 
-        this.isScrollBlocked = true;
-        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].to(window, { scrollTo: YCoord, duration });
+        if (direction === 'down' && windowHeight > bottomCurrentSnapSectionOffset && this.currentSnapSectionIndex + 1 < this.snapSectionsList.length) {
+            this.currentSnapSectionIndex++;
+            this.snapToCurrentSection(direction);
+        }
 
-        setTimeout(() => {
-            this.lenis.start();
-            this.isScrollBlocked = false;
-        }, duration * 1000 + 500);
+        if (direction === 'up' && topCurrentSnapSectionOffset > 0 && this.currentSnapSectionIndex !== 0) {
+            this.currentSnapSectionIndex--;
+            this.snapToCurrentSection(direction);
+        }
     }
 
-    findAndSetCurrentSnapSectionIndex() {
-        let { top: nearestSnapSectionTopOffset } = this.snapSectionsList[0].getBoundingClientRect();
-        let nearestSnapSectionIndex = 0;
-
-        this.snapSectionsList.forEach((snapSection, index) => {
-            const { top: sectionTopOffset } = snapSection.getBoundingClientRect();
-
-            if (Math.abs(sectionTopOffset) < Math.abs(nearestSnapSectionTopOffset)) {
-                nearestSnapSectionTopOffset = sectionTopOffset;
-                nearestSnapSectionIndex = index;
-            }
-        });
-
-        this.currentSnapSectionIndex = nearestSnapSectionIndex;
-    }
-
-    getSectionCenterYCoord(sectionTopYPosition, sectionHeight) {
-        return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
+    snapToCurrentSection(direction = 'down') {
+        const sectionPositionToScroll = this.getSectionPositionToScroll(this.snapSectionsList[this.currentSnapSectionIndex], direction);
+        this.scrollTo(sectionPositionToScroll);
     }
 
     getSectionPositionToScroll(section, direction = 'down') {
@@ -21750,21 +21760,20 @@ class SnapLenisScroll {
         return sectionTopYPosition;
     }
 
-    checkIfSnap(direction = 'down') {
-        const { top: topCurrentSnapSectionOffset, bottom: bottomCurrentSnapSectionOffset, height: sectionHeight } = this.snapSectionsList[this.currentSnapSectionIndex].getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+    getSectionCenterYCoord(sectionTopYPosition, sectionHeight) {
+        return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
+    }
 
-        if (direction === 'down' && windowHeight > bottomCurrentSnapSectionOffset && this.currentSnapSectionIndex + 1 < this.snapSectionsList.length) {
-            this.currentSnapSectionIndex++;
-            const sectionPositionToScroll = this.getSectionPositionToScroll(this.snapSectionsList[this.currentSnapSectionIndex], direction);
-            this.scrollTo(sectionPositionToScroll);
-        }
+    scrollTo(YCoord = 0, duration = 3) {
+        this.lenis.stop();
 
-        if (direction === 'up' && topCurrentSnapSectionOffset > 0 && this.currentSnapSectionIndex !== 0) {
-            this.currentSnapSectionIndex--;
-            const sectionPositionToScroll = this.getSectionPositionToScroll(this.snapSectionsList[this.currentSnapSectionIndex], direction);
-            this.scrollTo(sectionPositionToScroll);
-        }
+        this.isScrollBlocked = true;
+        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].to(window, { scrollTo: YCoord, duration });
+
+        setTimeout(() => {
+            this.lenis.start();
+            this.isScrollBlocked = false;
+        }, duration * 1000 + 500);
     }
 }
 
@@ -21799,14 +21808,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const onlyOpacityAnimationSections = document.querySelectorAll('.only-opacity-animation-section');
         
             onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
-                const content = onlyOpacitySection.querySelector('.only-opacity-animation-section__content');
-    
                 gsap__WEBPACK_IMPORTED_MODULE_6__["default"].from(onlyOpacitySection, {
-                    opacity: 0.1,
+                    opacity: 0,
                     scrollTrigger: {
-                        trigger: content,
-                        start: 'top+=100 bottom',
-                        end: 'bottom bottom',
+                        trigger: onlyOpacitySection,
+                        start: 'top bottom',
+                        end: 'bottom+=100 bottom',
                         scrub: true,
                         // once: true
                     }
@@ -21815,20 +21822,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
             const cardsAnimationSections = document.querySelectorAll('.cards-animation-section');
     
-            cardsAnimationSections.forEach((cardsAnimationSection) => {
-                const content = cardsAnimationSection.querySelector('.cards-animation-section__content');
-                
-                const title = content?.querySelector('.cards-animation-section__title');
-                const subtitle = content?.querySelector('.cards-animation-section__subtitle');
+            cardsAnimationSections.forEach((cardsAnimationSection) => {    
+                const title = cardsAnimationSection?.querySelector('.cards-animation-section__title');
+                const subtitle = cardsAnimationSection?.querySelector('.cards-animation-section__subtitle');
     
-                const cards = content?.querySelectorAll('.cards-animation-section__card');
+                const cards = cardsAnimationSection?.querySelectorAll('.cards-animation-section__card');
     
-                const seeMoreBtn = content?.querySelector('.cards-animation-section__see-more-btn');
+                const seeMoreBtn = cardsAnimationSection?.querySelector('.cards-animation-section__see-more-btn');
     
                 const cardsAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({
                     scrollTrigger: {
-                        trigger: content,
-                        start: 'top+=100 bottom',
+                        trigger: cardsAnimationSection,
+                        start: 'top bottom',
                         end: 'bottom bottom',
                         scrub: true,
                         // once: true,
@@ -21853,9 +21858,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
     
                 if (cardsAnimationSection.classList.contains('cards-animation-section--gather')) {
-                    const leftCard = content?.querySelector('.cards-animation-section__card--left');
-                    const middleCards = content?.querySelectorAll('.cards-animation-section__card--middle');
-                    const rightCard = content?.querySelector('.cards-animation-section__card--right');
+                    const leftCard = cardsAnimationSection?.querySelector('.cards-animation-section__card--left');
+                    const middleCards = cardsAnimationSection?.querySelectorAll('.cards-animation-section__card--middle');
+                    const rightCard = cardsAnimationSection?.querySelector('.cards-animation-section__card--right');
     
                     const gatherCardAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({ duration: 6 });
     
