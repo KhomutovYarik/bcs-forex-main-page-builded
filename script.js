@@ -109,9 +109,7 @@ class HeaderSectionBannerSlider {
             noSwiping: true,
             noSwipingClass: 'swiper-slide',
             on: {
-                slideChange: (e) => {
-                    const { previousRealIndex, realIndex } = e;
-
+                slideChange: ({ previousRealIndex, realIndex }) => {
                     this.changeBackground(previousRealIndex, realIndex);
                     
                     const currentSlide = this.slidesList[realIndex];
@@ -120,24 +118,26 @@ class HeaderSectionBannerSlider {
                     const slideBtn = currentSlide.querySelector('.large-header-banner__btn');
 
                     if (!isInitialAnimation) {
-                        let offsetMultiplier = 1;
-
-                        if (this.isSlideChangedByUser && previousRealIndex > realIndex) {
-                            offsetMultiplier = -1;
+                        if (previousRealIndex !== realIndex) {
+                            let offsetMultiplier = 1;
+    
+                            if (this.isSlideChangedByUser && previousRealIndex > realIndex) {
+                                offsetMultiplier = -1;
+                            }
+    
+                            gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier, opacity: SLIDE_TITLE_OPACITY });
+                            gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier, opacity: SLIDE_SUBTITLE_OPACITY });
+                            gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier });
+    
+                            this.isSlideChangedByUser = false;
                         }
-
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideTitle, { duration: SLIDE_TITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier, opacity: SLIDE_TITLE_OPACITY });
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideSubtitle, { duration: SLIDE_SUBTITLE_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier, opacity: SLIDE_SUBTITLE_OPACITY });
-                        gsap__WEBPACK_IMPORTED_MODULE_2__["default"].from(slideBtn, { duration: SLIDE_BTN_ANIMATION_DURATION, x: SLIDE_ELEMENTS_X_OFFSET * offsetMultiplier });
-
-                        this.isSlideChangedByUser = false;
                     } else {
                         const firstSlideAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
 
                         firstSlideAnimationTimeline
-                            .from(slideTitle, { duration: 1.2, x: 130, opacity: 0 })
-                            .from(slideSubtitle, { duration: 0.8, x: 130, opacity: 0 })
-                            .from(slideBtn, { duration: 0.9, x: 130, opacity: 0 });
+                            .from(slideTitle, { duration: 1.2, x: SLIDE_ELEMENTS_X_OFFSET, opacity: 0 })
+                            .from(slideSubtitle, { duration: 0.8, x: SLIDE_ELEMENTS_X_OFFSET, opacity: 0 })
+                            .from(slideBtn, { duration: 0.9, x: SLIDE_ELEMENTS_X_OFFSET, opacity: 0 });
 
                         isInitialAnimation = false;
                     }
