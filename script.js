@@ -21764,7 +21764,7 @@ class SnapLenisScroll {
         return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
     }
 
-    scrollTo(YCoord = 0, duration = 1.25) {
+    scrollTo(YCoord = 0, duration = 1.5) {
         this.lenis.stop();
 
         this.isScrollBlocked = true;
@@ -21814,6 +21814,7 @@ document.addEventListener('DOMContentLoaded', () => {
             onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
                 gsap__WEBPACK_IMPORTED_MODULE_6__["default"].from(onlyOpacitySection, {
                     opacity: 0.1,
+                    ease: 'linear',
                     scrollTrigger: {
                         trigger: onlyOpacitySection,
                         start: 'top-=50 bottom-=150',
@@ -21834,6 +21835,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const seeMoreBtn = cardsAnimationSection?.querySelector('.cards-animation-section__see-more-btn');
     
                 const cardsAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({
+                    ease: 'linear',
                     scrollTrigger: {
                         trigger: cardsAnimationSection,
                         start: 'top-=50 bottom-=150',
@@ -21864,7 +21866,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const middleCards = cardsAnimationSection?.querySelectorAll('.cards-animation-section__card--middle');
                     const rightCard = cardsAnimationSection?.querySelector('.cards-animation-section__card--right');
     
-                    const gatherCardAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({ duration: 6 });
+                    const gatherCardAnimationTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({ 
+                        duration: 6,
+                        ease: 'linear'
+                    });
     
                     if (leftCard) {
                         gatherCardAnimationTimeline
