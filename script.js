@@ -21764,7 +21764,7 @@ class SnapLenisScroll {
         return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
     }
 
-    scrollTo(YCoord = 0, duration = 1) {
+    scrollTo(YCoord = 0, duration = 1.2) {
         this.lenis.stop();
 
         this.isScrollBlocked = true;
@@ -21814,9 +21814,10 @@ document.addEventListener('DOMContentLoaded', () => {
             onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
                 gsap__WEBPACK_IMPORTED_MODULE_6__["default"].from(onlyOpacitySection, {
                     opacity: 0.1,
+                    ease: 'linear',
                     scrollTrigger: {
                         trigger: onlyOpacitySection,
-                        start: 'top-=50 bottom-=150',
+                        start: 'top-=100 bottom-=200',
                         end: 'bottom bottom',
                         scrub: true,
                     }
