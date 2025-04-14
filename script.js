@@ -21764,11 +21764,15 @@ class SnapLenisScroll {
         return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
     }
 
-    scrollTo(YCoord = 0, duration = 2) {
+    scrollTo(YCoord = 0, duration = 1.25) {
         this.lenis.stop();
 
         this.isScrollBlocked = true;
-        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].to(window, { scrollTo: YCoord, duration, ease: 'linear' });
+        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].to(window, { 
+            scrollTo: YCoord, 
+            duration, 
+            ease: 'linear' 
+        });
 
         setTimeout(() => {
             this.lenis.start();
