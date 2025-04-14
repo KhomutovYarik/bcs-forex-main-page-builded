@@ -21864,19 +21864,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
                     if (leftCard) {
                         gatherCardAnimationTimeline
-                            .from(leftCard, { x: -120, opacity: 0, duration: 2 }, 0);
+                            .from(leftCard, { x: -150, opacity: 0, duration: 2 }, 0);
                     }
     
                     if (middleCards?.length > 0) {
                         middleCards.forEach((middleCard) => {
                             gatherCardAnimationTimeline
-                                .from(middleCard, { y: 120, opacity: 0, duration: 2 }, 0);
+                                .from(middleCard, { y: 150, opacity: 0, duration: 2 }, 0);
                         });
                     }
     
                     if (rightCard) {
                         gatherCardAnimationTimeline
-                            .from(rightCard, { x: 120, opacity: 0, duration: 2 }, 0);
+                            .from(rightCard, { x: 150, opacity: 0, duration: 2 }, 0);
                     }
     
                     cardsAnimationSectionTimeline.add(gatherCardAnimationTimeline);
@@ -21885,7 +21885,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         cardsAnimationSectionTimeline
                             .from(card, 
                                 { 
-                                    y: 80, 
+                                    y: 150, 
                                     opacity: 0,
                                     duration: 2
                                 }
