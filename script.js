@@ -21768,7 +21768,7 @@ class SnapLenisScroll {
         this.lenis.stop();
 
         this.isScrollBlocked = true;
-        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].to(window, { scrollTo: YCoord, duration });
+        gsap__WEBPACK_IMPORTED_MODULE_6__["default"].to(window, { scrollTo: YCoord, duration, ease: 'linear' });
 
         setTimeout(() => {
             this.lenis.start();
