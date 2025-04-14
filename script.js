@@ -21814,7 +21814,6 @@ document.addEventListener('DOMContentLoaded', () => {
             onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
                 gsap__WEBPACK_IMPORTED_MODULE_6__["default"].from(onlyOpacitySection, {
                     opacity: 0.1,
-                    ease: 'linear',
                     scrollTrigger: {
                         trigger: onlyOpacitySection,
                         start: 'top-=50 bottom-=150',
