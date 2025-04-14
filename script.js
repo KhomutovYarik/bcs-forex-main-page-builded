@@ -21764,7 +21764,7 @@ class SnapLenisScroll {
         return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
     }
 
-    scrollTo(YCoord = 0, duration = 1.5) {
+    scrollTo(YCoord = 0, duration = 2) {
         this.lenis.stop();
 
         this.isScrollBlocked = true;
@@ -21847,12 +21847,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 if (title) {
                     cardsAnimationSectionTimeline
-                        .from(title, { y: 100, opacity: 0, duration: 1 })
+                        .from(title, { y: 80, opacity: 0, duration: 1 })
                 }
     
                 if (subtitle) {
                     cardsAnimationSectionTimeline
-                        .from(subtitle, { y: 100, opacity: 0, duration: 1 })
+                        .from(subtitle, { y: 80, opacity: 0, duration: 1 })
                 }
     
                 if (cardsAnimationSection.classList.contains('cards-animation-section--gather')) {
@@ -21864,19 +21864,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
                     if (leftCard) {
                         gatherCardAnimationTimeline
-                            .from(leftCard, { x: -300, opacity: 0, duration: 2 }, 0);
+                            .from(leftCard, { x: -120, opacity: 0, duration: 2 }, 0);
                     }
     
                     if (middleCards?.length > 0) {
                         middleCards.forEach((middleCard) => {
                             gatherCardAnimationTimeline
-                                .from(middleCard, { y: 300, opacity: 0, duration: 2 }, 0);
+                                .from(middleCard, { y: 120, opacity: 0, duration: 2 }, 0);
                         });
                     }
     
                     if (rightCard) {
                         gatherCardAnimationTimeline
-                            .from(rightCard, { x: 300, opacity: 0, duration: 2 }, 0);
+                            .from(rightCard, { x: 120, opacity: 0, duration: 2 }, 0);
                     }
     
                     cardsAnimationSectionTimeline.add(gatherCardAnimationTimeline);
@@ -21885,7 +21885,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         cardsAnimationSectionTimeline
                             .from(card, 
                                 { 
-                                    y: 300, 
+                                    y: 80, 
                                     opacity: 0,
                                     duration: 2
                                 }
@@ -21895,7 +21895,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 if (seeMoreBtn) {
                     cardsAnimationSectionTimeline
-                        .from(seeMoreBtn, { y: 100, opacity: 0.3, duration: 2 });
+                        .from(seeMoreBtn, { y: 80, opacity: 0, duration: 2 });
                 }
             });
         }
