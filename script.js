@@ -21764,7 +21764,7 @@ class SnapLenisScroll {
         return sectionTopYPosition - (window.innerHeight / 2) + (sectionHeight / 2);
     }
 
-    scrollTo(YCoord = 0, duration = 1.5) {
+    scrollTo(YCoord = 0, duration = 1) {
         this.lenis.stop();
 
         this.isScrollBlocked = true;
