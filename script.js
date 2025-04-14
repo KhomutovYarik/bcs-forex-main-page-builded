@@ -21809,13 +21809,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
             onlyOpacityAnimationSections.forEach((onlyOpacitySection) => {
                 gsap__WEBPACK_IMPORTED_MODULE_6__["default"].from(onlyOpacitySection, {
-                    opacity: 0,
+                    opacity: 0.1,
                     scrollTrigger: {
                         trigger: onlyOpacitySection,
-                        start: 'top bottom',
-                        end: 'bottom+=100 bottom',
+                        start: 'top-=50 bottom-=150',
+                        end: 'bottom bottom',
                         scrub: true,
-                        // once: true
                     }
                 });
             });
@@ -21833,10 +21832,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cardsAnimationSectionTimeline = gsap__WEBPACK_IMPORTED_MODULE_6__["default"].timeline({
                     scrollTrigger: {
                         trigger: cardsAnimationSection,
-                        start: 'top bottom',
+                        start: 'top-=50 bottom-=150',
                         end: 'bottom bottom',
                         scrub: true,
-                        // once: true,
                         onUpdate: ({ progress }) => {
                             if (progress === 1) {
                                 cards.forEach((card) => {
