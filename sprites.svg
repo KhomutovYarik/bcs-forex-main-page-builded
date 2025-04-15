@@ -44,9 +44,9 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M7.85714 2.3999H13.6V8.14276H12.4V4.44843L7.42426 9.42417L6.57574 8.57564L11.5515 3.5999H7.85714V2.3999Z" fill="currentColor"/>
     </symbol>
     <symbol id="burger-menu" viewBox="0 0 24 24">
-        <path d="M3 5H21" stroke="#2A2A2A" stroke-width="1.7" stroke-linecap="round"/>
-        <path d="M3 12H21" stroke="#2A2A2A" stroke-width="1.7" stroke-linecap="round"/>
-        <path d="M3 19H21" stroke="#2A2A2A" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M3 5H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M3 12H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M3 19H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
     </symbol>
     <symbol id="close-cross" viewBox="0 0 24 24">
         <path d="M19 5L12 12M5 19L12 12M12 12L5 5L19 19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

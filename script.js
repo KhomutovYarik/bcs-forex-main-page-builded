@@ -217,6 +217,7 @@ class Modal {
     }
 
     openModal() {
+        this.modal.classList.remove('closed');
         this.modal.classList.add('opened');
         this.openBtn.classList.add('opened');
         document.body.classList.add('no-scroll');
@@ -225,6 +226,7 @@ class Modal {
 
     closeModal() {
         this.modal.classList.remove('opened');
+        this.modal.classList.add('closed');
         this.openBtn.classList.remove('opened');
         document.body.classList.remove('no-scroll');
         delete document.body.dataset.lenisPrevent;
