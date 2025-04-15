@@ -2063,6 +2063,11 @@ button.swiper-pagination-bullet {
 #updated-bcs-design .vertical-card a:focus, #updated-bcs-design .vertical-card a:hover, #updated-bcs-design .vertical-card a:active {
   color: var(--primary-color);
 }
+@media (max-width: 992px) {
+  #updated-bcs-design .vertical-card a:focus, #updated-bcs-design .vertical-card a:hover, #updated-bcs-design .vertical-card a:active {
+    color: var(--primary-color-dark);
+  }
+}
 #updated-bcs-design .vertical-card__img {
   width: 148px;
   height: 148px;
